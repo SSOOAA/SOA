@@ -3,8 +3,8 @@
         targetNamespace="http://jw.nju.edu.cn/schema"
         xmlns:tns="http://jw.nju.edu.cn/schema"
         xmlns:nju="http://www.nju.edu.cn/schema" elementFormDefault="qualified">
-
-    <include schemaLocation="../ScoreList.xsd"></include>
+    <import namespace="http://www.nju.edu.cn/schema" schemaLocation="./PersonInfo.xsd" />
+    <include schemaLocation="./ScoreList.xsd" />
 
     <element name="课程" type="tns:课程类型"></element>
 
@@ -21,14 +21,16 @@
     </complexType>
 
     <simpleType name="课程编号类型">
-        <restriction base="int">
+        <restriction base="string">
             <length value="8"></length>
         </restriction>
     </simpleType>
 
     <complexType name="开课时间类型">
-        <attribute name="开课年份" type="gYear"></attribute>
-        <attribute name="开课季度" type="tns:季度类型"></attribute>
+        <sequence>
+            <element name="开课年份" type="gYear"></element>
+            <element name="开课季度" type="tns:季度类型"></element>
+        </sequence>
     </complexType>
 
     <simpleType name="季度类型">
@@ -48,14 +50,18 @@
     </complexType>
 
     <complexType name="上课时间类型">
-        <attribute name="上课日期" type="date"></attribute>
-        <attribute name="开始时间" type="time"></attribute>
-        <attribute name="结束时间" type="time"></attribute>
+        <sequence>
+            <element name="上课日期" type="date"></element>
+            <element name="开始时间" type="time"></element>
+            <element name="结束时间" type="time"></element>
+        </sequence>
     </complexType>
 
     <complexType name="上课地点类型">
-        <attribute name="教学楼" type="string"></attribute>
-        <attribute name="教室" type="string"></attribute>
+        <sequence>
+            <element name="教学楼" type="string"></element>
+            <element name="教室" type="string"></element>
+        </sequence>
     </complexType>
 
     <complexType name="课程教师列表类型">

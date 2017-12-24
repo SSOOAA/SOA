@@ -2,9 +2,7 @@ package assignment3;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
+import assignment4.SchemaValidator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,10 +20,15 @@ public class StudentListXmlHelper {
     private static final String[] COURSE_NAME_ARRAY = {"Linux程序设计", "服务计算与SOA开发", "J2EE与中间件", "软件系统设计与体系结构", "电子商务"};
     private static final String[] SCORE_TYPE_ARRAY = {"平时成绩", "期末成绩", "总评成绩"};
 
+    private static final String NAMESPACE_JW = "http://jw.nju.edu.cn/schema";
+    private static final String NAMESPACE_WWW = "http://www.nju.edu.cn/schema";
+
     private void generateXml() {
         try {
             //创建DOM构造器工厂
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+            factory.setNamespaceAware(true);
 
             //获取DOM构造器
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -34,7 +37,10 @@ public class StudentListXmlHelper {
             Document studentListDOM = builder.newDocument();
 
             //创建 学生列表 并添加至DOM中
-            Element root = studentListDOM.createElement("学生列表");
+            Element root = studentListDOM.createElementNS(NAMESPACE_JW, "学生列表");
+            root.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:nju", NAMESPACE_WWW);
+            root.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance",
+                    "xsi:schemaLocation", NAMESPACE_JW + " StudentList.xsd");
             studentListDOM.appendChild(root);
 
             //从数据文件中读取 学生 信息
@@ -55,25 +61,30 @@ public class StudentListXmlHelper {
                 Element personalInfo = studentListDOM.createElement("个人基本信息");
 
                 //创建 姓名 并添加至 个人基本信息
-                Element name = studentListDOM.createElement("姓名");
+                Element name = studentListDOM.createElementNS(NAMESPACE_WWW, "姓名");
+                name.setPrefix("nju");
                 name.appendChild(studentListDOM.createTextNode(info[0]));
                 personalInfo.appendChild(name);
 
                 //创建 部门
-                Element department = studentListDOM.createElement("部门");
+                Element department = studentListDOM.createElementNS(NAMESPACE_WWW, "部门");
+                department.setPrefix("nju");
 
                 //创建 部门名称 并添加至 部门 中
-                Element departmentName = studentListDOM.createElement("部门名称");
+                Element departmentName = studentListDOM.createElementNS(NAMESPACE_WWW, "部门名称");
+                departmentName.setPrefix("nju");
                 departmentName.appendChild(studentListDOM.createTextNode("软件学院"));
                 department.appendChild(departmentName);
 
                 //创建 部门电话 并添加至 部门 中
-                Element departmentContact = studentListDOM.createElement("部门电话");
+                Element departmentContact = studentListDOM.createElementNS(NAMESPACE_WWW, "部门电话");
+                departmentContact.setPrefix("nju");
                 departmentContact.appendChild(studentListDOM.createTextNode("025-83621002"));
                 department.appendChild(departmentContact);
 
                 //创建 部门地址 并添加至 部门 中
-                Element departmentAddress = studentListDOM.createElement("部门地址");
+                Element departmentAddress = studentListDOM.createElementNS(NAMESPACE_WWW, "部门地址");
+                departmentAddress.setPrefix("nju");
                 departmentAddress.appendChild(studentListDOM.createTextNode("南京市汉口路22号，南京大学软件学院(费彝民楼B座4-9层)"));
                 department.appendChild(departmentAddress);
 
@@ -81,12 +92,14 @@ public class StudentListXmlHelper {
                 personalInfo.appendChild(department);
 
                 //创建 职务 至 个人基本信息 中
-                Element type = studentListDOM.createElement("职务");
+                Element type = studentListDOM.createElementNS(NAMESPACE_WWW, "职务");
+                type.setPrefix("nju");
                 type.appendChild(studentListDOM.createTextNode("本科生"));
                 personalInfo.appendChild(type);
 
                 //创建 个人编号 至 个人基本信息 中
-                Element id = studentListDOM.createElement("个人编号");
+                Element id = studentListDOM.createElementNS(NAMESPACE_WWW, "个人编号");
+                id.setPrefix("nju");
                 id.appendChild(studentListDOM.createTextNode(info[1]));
                 personalInfo.appendChild(id);
 
@@ -149,6 +162,7 @@ public class StudentListXmlHelper {
                 root.appendChild(student);
             }
 
+
             //创建DOM转换器工厂
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
@@ -163,6 +177,12 @@ public class StudentListXmlHelper {
 
             //由转换器把DOM资源转换到结果输出流，结果输出流连接到一个xml文件
             transformer.transform(new DOMSource(studentListDOM), new StreamResult("src/assignment3/StudentList.xml"));
+
+            if (SchemaValidator.validateSchema("src/assignment2/StudentList.xsd", "src/assignment3/StudentList.xml")) {
+                System.out.println("成功：输出的StudentList.xml符合schema！");
+            } else {
+                System.out.println("失败：输出的StudentList.xml不符合schema！");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
