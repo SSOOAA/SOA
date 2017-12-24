@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://jw.nju.edu.cn/schema"
+        xmlns:tns="http://jw.nju.edu.cn/schema"
+        xmlns:nju="http://www.nju.edu.cn/schema" elementFormDefault="qualified">
+    <import namespace="http://www.nju.edu.cn/schema" schemaLocation="./PersonInfo.xsd" />
+    <include schemaLocation="./ScoreList.xsd" />
+
+    <element name="课程" type="tns:课程类型"></element>
+
+    <complexType name="课程类型" mixed="true">
+        <sequence>
+            <element name="课程编号" type="tns:课程编号类型"></element>
+            <element name="课程名" type="string"></element>
+            <element name="开课时间" type="tns:开课时间类型"></element>
+            <element name="开课院系" type="string"></element>
+            <element name="课时列表" type="tns:课时列表类型"></element>
+            <element name="课程教师列表" type="tns:课程教师列表类型"></element>
+            <element name="课程成绩列表" type="tns:课程成绩列表类型"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="课程编号类型">
+        <restriction base="string">
+            <length value="8"></length>
+        </restriction>
+    </simpleType>
+
+    <complexType name="开课时间类型">
+        <sequence>
+            <element name="开课年份" type="gYear"></element>
+            <element name="开课季度" type="tns:季度类型"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="季度类型">
+        <restriction base="string">
+            <enumeration value="春"></enumeration>
+            <enumeration value="夏"></enumeration>
+            <enumeration value="秋"></enumeration>
+            <enumeration value="冬"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <complexType name="课时列表类型">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="上课时间" type="tns:上课时间类型"></element>
+            <element name="上课地点" type="tns:上课地点类型"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="上课时间类型">
+        <sequence>
+            <element name="上课日期" type="date"></element>
+            <element name="开始时间" type="time"></element>
+            <element name="结束时间" type="time"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="上课地点类型">
+        <sequence>
+            <element name="教学楼" type="string"></element>
+            <element name="教室" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="课程教师列表类型">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="课程教师个人信息" type="nju:个人信息类型"></element>
+        </sequence>
+    </complexType>
+</schema>

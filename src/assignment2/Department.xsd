@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.nju.edu.cn/schema" xmlns:tns="http://jw.nju.edu.cn/schema" xmlns:nju="http://www.nju.edu.cn/schema" elementFormDefault="qualified">
+    <import namespace="http://jw.nju.edu.cn/schema" schemaLocation="../bin/Student.xsd" />
+
+	<complexType name="部门类型">
+		<attribute name="部门名称" type="string"></attribute>
+		<attribute name="部门电话" type="nju:电话类型"></attribute>
+		<attribute name="部门地址" type="string"></attribute>
+	</complexType>
+
+	<element name="部门" type="nju:部门类型"></element>
+
+	<simpleType name="电话类型">
+    	<restriction base="int">
+    		<length value="11"></length>
+    	</restriction>
+    </simpleType>
+
+
+</schema>
