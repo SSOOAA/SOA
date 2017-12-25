@@ -59,6 +59,14 @@ public class CreateXML {
 		}
 		 AttributesImpl atts = new AttributesImpl();
 		 
+		 try {
+				transformerhandler.startElement("", "", "课程成绩列表", atts);
+				
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
 		 for (Score score : list) {
 			atts.clear();
 			try {
@@ -141,6 +149,7 @@ public class CreateXML {
 		 }
 		 
 		 try {
+			transformerhandler.endElement("", "", "课程成绩列表");
 			transformerhandler.endDocument();
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
