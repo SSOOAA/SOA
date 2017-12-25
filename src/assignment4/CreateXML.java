@@ -15,7 +15,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
+Administrator created 
+ */
 public class CreateXML {
 	public void createXML(ArrayList<Score> list){
 		SAXTransformerFactory saxtransformerfactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
