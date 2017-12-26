@@ -15,7 +15,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
+Administrator created 
+ */
 public class CreateXML {
 	public void createXML(ArrayList<Score> list){
 		SAXTransformerFactory saxtransformerfactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
@@ -58,7 +60,8 @@ public class CreateXML {
 			e.printStackTrace();
 		}
 		 AttributesImpl atts = new AttributesImpl();
-		 
+
+		 atts.clear();
 		 try {
 				transformerhandler.startElement("", "", "课程成绩列表", atts);
 				
@@ -69,6 +72,8 @@ public class CreateXML {
 		 
 		 for (Score score : list) {
 			atts.clear();
+			atts.addAttribute("","","课程编号","",score.getCourseId());
+			atts.addAttribute("","","成绩性质","",score.getScoreType());
 			try {
 				transformerhandler.startElement("", "", "课程成绩", atts);
 			} catch (SAXException e) {
@@ -122,18 +127,6 @@ public class CreateXML {
 					transformerhandler.startElement("", "", "课程编号", atts);
 					transformerhandler.characters(score.getCourseId().toCharArray(), 0, score.getCourseId().length());
 					transformerhandler.endElement("", "", "课程编号");
-				} catch (SAXException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			 
-			 if (score.getScoreType() != null) {
-				 atts.clear();
-				 try {
-					transformerhandler.startElement("", "", "成绩性质", atts);
-					transformerhandler.characters(score.getScoreType().toCharArray(), 0, score.getScoreType().length());
-					transformerhandler.endElement("", "", "成绩性质");
 				} catch (SAXException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

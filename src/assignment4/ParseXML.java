@@ -58,7 +58,9 @@ public class ParseXML extends DefaultHandler{
             Attributes attributes) throws SAXException {  
         if(qName.equals("课程成绩")){  
             score=new Score();
-        }  
+            score.setCourseId(attributes.getValue(0));
+            score.setScoreType(attributes.getValue(1));
+        }
         if(qName.equals("成绩")){
         	singleScore = new SingleScore();
         }
@@ -92,12 +94,6 @@ public class ParseXML extends DefaultHandler{
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (score != null) {
             String data = new String(ch, start, length);
-            if ("课程编号".equals(tagName)) {
-                score.setCourseId(data);
-            }
-            if ("成绩性质".equals(tagName)) {
-                score.setScoreType(data);
-            }
             if ("学号".equals(tagName)) {
                 singleScore.setSid(data);
             }
