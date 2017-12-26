@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jaxm-api-4.6-b01">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/soap-get/WEB-INF/lib/jaxm-api-4.6-b01.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SOAHomework.iml" filepath="$PROJECT_DIR$/SOAHomework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/soap-get/soap-get.iml" filepath="$PROJECT_DIR$/soap-get/soap-get.iml" />
     </modules>
   </component>
 </project>
