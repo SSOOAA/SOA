@@ -1,0 +1,11 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <成绩修改信息>
+            <个人编号>151250088</个人编号>
+            <课程编号>25010390</课程编号>
+            <得分>87</得分>
+            <成绩性质>平时成绩</成绩性质>
+        </成绩修改信息>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
