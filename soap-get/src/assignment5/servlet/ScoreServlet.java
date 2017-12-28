@@ -54,9 +54,9 @@ public class ScoreServlet extends HttpServlet {
         String a = request.getParameter("query");
         String b = request.getParameter("download");
 
-        if (a!=null&&a.equals("查询成绩")) {
+        if (a != null && a.equals("查询成绩")) {
             response.setContentType("text/html;charset=utf-8");
-        } else if(b!=null&&b.equals("下载成绩单")) {
+        } else if (b != null && b.equals("下载成绩单")) {
             response.setHeader("Content-Type", "Application/soap+xml;charset=utf-8");
         }
 
@@ -128,40 +128,40 @@ public class ScoreServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
             out.println("<p>当前学号：" + studentId + "</p>");
-            out.println("<p>成绩列表如下：</p>");
-            out.println("<table border='1'>");
-            out.println("<tr><th>课程编号</th><th>成绩性质</th><th>得分</th></tr>");
-            for (Score score : scoreList) {
-                out.print("<tr>");
-                out.print("<td>" + score.getCourseId() + "</td>");
-                out.print("<td>" + score.getType() + "</td>");
-                out.print("<td>" + score.getPoint() + "</td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
+                out.println("<p>成绩列表如下：</p>");
+                out.println("<table border='1'>");
+                out.println("<tr><th>课程编号</th><th>成绩性质</th><th>得分</th></tr>");
+                for (Score score : scoreList) {
+                    out.print("<tr>");
+                    out.print("<td>" + score.getCourseId() + "</td>");
+                    out.print("<td>" + score.getType() + "</td>");
+                    out.print("<td>" + score.getPoint() + "</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
             out.println("<h3>得到的soap消息为：</h3>");
             out.println("<p>");
 
-            if (!scoreList.isEmpty()) {
-                out.println("HTTP/1.1 200 OK\n");
-                out.println("Content-Type: application/soap+xml; charset=\"utf-8\" \n");
-//                out.println("Content-Length: nnnn \n");
-            } else {
-                out.println("HTTP/1.1 500 Internal Server Error \n");
-                out.println("Content-Type: application/soap+xml; charset=\"utf-8\" \n");
-//                out.println("Content-Length: nnnn \n");
-            }
+//            if (!scoreList.isEmpty()) {
+//                out.println("HTTP/1.1 200 OK\n");
+//                out.println("Content-Type: application/soap+xml; charset=\"utf-8\" \n");
+////                out.println("Content-Length: nnnn \n");
+//            } else {
+//                out.println("HTTP/1.1 500 Internal Server Error \n");
+//                out.println("Content-Type: application/soap+xml; charset=\"utf-8\" \n");
+////                out.println("Content-Length: nnnn \n");
+//            }
 
             InputStreamReader isr = new InputStreamReader(new FileInputStream(soapFile), "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(isr);
             String line = null;
-            if (a!=null&&a.equals("查询成绩")) {
+            if (a != null && a.equals("查询成绩")) {
                 while ((line = bufferedReader.readLine()) != null) {
                     line = line.replaceAll("<", "&lt");
                     line = line.replaceAll(">", "&gt");
                     out.println(line);
                 }
-                } else if(b!=null&&b.equals("下载成绩单")) {
+            } else if (b != null && b.equals("下载成绩单")) {
                 while ((line = bufferedReader.readLine()) != null) {
                     out.println(line);
                 }
