@@ -3,7 +3,7 @@ package assignment6.model;
 public class ModifyScore {
     private String sid;
     private String cid;
-    private int score;
+    private String score;
     private String scoreType;
 
     public String getSid() {
@@ -22,11 +22,11 @@ public class ModifyScore {
         this.cid = cid;
     }
 
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
 

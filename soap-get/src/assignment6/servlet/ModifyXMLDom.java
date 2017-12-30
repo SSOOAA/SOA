@@ -20,8 +20,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ModifyXMLDom {
-    public void updateXML(ModifyScore modifyScore){
-        String filepath = getClass().getResource("StudentList.xml").getPath();
+    public void updateXML(ModifyScore modifyScore,String filepath){
         File XMLfile = new File(filepath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -75,4 +74,5 @@ public class ModifyXMLDom {
 
         }
     }
+
 }

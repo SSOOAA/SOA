@@ -2,13 +2,11 @@ package assignment6.servlet;
 
 import assignment5.model.Score;
 import assignment5.sax.MyContentHandler;
+import assignment6.Util.ParseSOAP;
 import assignment6.model.ModifyScore;
 import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
@@ -25,67 +23,100 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet("/modify")
 public class ModifyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doGet(req, resp);
+        doPost(req,resp);
+
+//        PrintWriter out = resp.getWriter();
+//        out.println("classes项目全路径:"+this.getClass().getClassLoader().getResource("/").getPath());
+//        out.println("web根的上下文路径："+req.getContextPath());
+//        out.println("获得当前目录的路径:"+req.getRealPath(""));
+//        out.println("项目发布路径:"+(String)req.getContextPath());
+//        out.println("项目test真实路径："+req.getRequestURI());
+//        out.println("项目真实路径："+req.getRealPath(req.getServletPath()));
+
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
-        String line;
-        StringBuilder sb = new StringBuilder();
-        PrintWriter out = resp.getWriter();
-        while ((line = br.readLine()) != null) {
-//            System.out.println(line);
-//            out.println(line);
-            sb.append(line);
-        }
-        out.println(sb.toString());
-
-        ModifyScore modifyScore = new ModifyScore();
+        resp.setCharacterEncoding("UTF-8");
+        SAXParser parser = null;
+        ModifyScore modifyScore = null;
         try {
-            MessageFactory msgFactory;
-            msgFactory = MessageFactory.newInstance();
-            SOAPMessage reqMsg = msgFactory.createMessage(new MimeHeaders(), new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
-            reqMsg.saveChanges();
-            SOAPBody body = reqMsg.getSOAPBody();
-            Iterator<SOAPElement> iterator = body.getChildElements();
+            //构建SAXParser
+            parser = SAXParserFactory.newInstance().newSAXParser();
+            //
+            //            System.out.println(score.getSid());实例化  DefaultHandler对象
+            ParseSOAP parseSoap=new ParseSOAP();
+            //调用parse()方法
+            parser.parse(new File(this.getClass().getClassLoader().getResource("/").getPath()+"assignment6/client/changeInfo.xml"), parseSoap);
+            //遍历结果
+            modifyScore = parseSoap.getModifyScore();
 
-            while (iterator.hasNext()) {
-                SOAPElement element = (SOAPElement) iterator.next();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
+//        String line;
+//        StringBuilder sb = new StringBuilder();
+//        PrintWriter out = resp.getWriter();
+//        while ((line = br.readLine()) != null) {
+////            System.out.println(line);
+////            out.println(line);
+//            sb.append(line);
+//        }
+
+//        ModifyScore modifyScore = new ModifyScore();
+//        try {
+//            MessageFactory msgFactory;
+//            msgFactory = MessageFactory.newInstance();
+//            SOAPMessage reqMsg = msgFactory.createMessage(new MimeHeaders(), new ByteArrayInputStream(sb.toString().getBytes("GBK")));
+//            reqMsg.saveChanges();
+//            SOAPBody body = reqMsg.getSOAPBody();
+//            Iterator<SOAPElement> iterator = body.getChildElements();
+//
+//            while (iterator.hasNext()) {
+//                out.println("cd");
+//                SOAPElement element = (SOAPElement) iterator.next();
 //                if (element == null){
 //                    out.println("fail");
 //                }else {
 //                    out.println(element.getTagName());
+//                    out.println("wt");
 //                }
 //                out.println("tag:"+element.getTagName()+" value:"+element.getValue());
-                if (element.getTagName().equals("个人编号")) {
-                    modifyScore.setSid(element.getValue());
-                }
-                if (element.getTagName().equals("课程编号")) {
-                    modifyScore.setCid(element.getValue());
-                }
-                if (element.getTagName().equals("得分")) {
-                    modifyScore.setScore(Integer.parseInt(element.getValue()));
-                }
-                if (element.getTagName().equals("成绩性质")) {
-                    modifyScore.setScoreType(element.getValue());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//                if (element.getTagName().equals("个人编号")) {
+//                    modifyScore.setSid(element.getValue());
+//                }
+//                if (element.getTagName().equals("课程编号")) {
+//                    modifyScore.setCid(element.getValue());
+//                }
+//                if (element.getTagName().equals("得分")) {
+//                    modifyScore.setScore(Integer.parseInt(element.getValue()));
+//                }
+//                if (element.getTagName().equals("成绩性质")) {
+//                    modifyScore.setScoreType(element.getValue());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         ModifyXMLDom modifyXMLDom = new ModifyXMLDom();
-        modifyXMLDom.updateXML(modifyScore);
+        String filepath = this.getClass().getClassLoader().getResource("/").getPath()+"assignment6/servlet/StudentList.xml";
+        modifyXMLDom.updateXML(modifyScore,filepath);
+
 
         String sid = modifyScore.getSid();
         ArrayList<Score> scoreList = new ArrayList<>();
@@ -97,7 +128,7 @@ public class ModifyServlet extends HttpServlet {
             XMLReader xmlReader = saxParser.getXMLReader();
             xmlReader.setContentHandler(new MyContentHandler(sid, scoreList));
             xmlReader.setErrorHandler(new DefaultErrorHandler());
-            xmlReader.parse(getClass().getResource("StudentList.xml").getPath());
+            xmlReader.parse(filepath);
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -149,12 +180,13 @@ public class ModifyServlet extends HttpServlet {
                 body.addDocument(resultDOM);
             }
 
-            File soapFile = new File(getClass().getResource("out.xml").getPath());
+            File soapFile = new File(this.getClass().getClassLoader().getResource("/").getPath()+"assignment6/servlet/out.xml");
             message.writeTo(new FileOutputStream(soapFile));
 
             Document doc = (Document) message.getSOAPPart().getEnvelope().getOwnerDocument();
             StringWriter output = new StringWriter();
             TransformerFactory.newInstance().newTransformer().transform( new DOMSource((org.w3c.dom.Node) doc), new StreamResult(output));
+            PrintWriter out = resp.getWriter();
             out.write(output.toString());
 
         } catch (ParserConfigurationException e) {

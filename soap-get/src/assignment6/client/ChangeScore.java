@@ -44,11 +44,15 @@ public class ChangeScore {
         }
         httpConn.setDoOutput(true);
         httpConn.setDoInput(true);
+        httpConn.setRequestProperty("Accept-Charset", "utf-8");
+        httpConn.setRequestProperty("contentType", "utf-8");
 
         OutputStream out = null;
         try {
             out = httpConn.getOutputStream();
             out.write(buf);
+            int code = httpConn.getResponseCode();
+            System.out.println(code);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,8 +88,9 @@ public class ChangeScore {
                 {
                     System.out.println(inputLine);
                     bw.write(inputLine);
+//                    bw.flush();
                     bw.newLine();
-                    bw.close();
+//                    bw.close();
                 }
                 in.close();
 
