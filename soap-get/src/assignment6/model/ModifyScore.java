@@ -6,6 +6,16 @@ public class ModifyScore {
     private String score;
     private String scoreType;
 
+    public ModifyScore() {
+    }
+
+    public ModifyScore(String sid, String cid, String score, String scoreType) {
+        this.sid = sid;
+        this.cid = cid;
+        this.score = score;
+        this.scoreType = scoreType;
+    }
+
     public String getSid() {
         return sid;
     }

@@ -1,36 +1,29 @@
 package assignment6.servlet;
 
+import Utils.ModScore;
+import Utils.ModifyXML;
+import Utils.ParseSOAP;
+import Utils.QueryScore;
 import assignment5.model.Score;
-import assignment5.sax.MyContentHandler;
-import assignment6.Util.ParseSOAP;
 import assignment6.model.ModifyScore;
-import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
-
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.*;
-import javax.xml.soap.*;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
 
 @WebServlet("/modify")
 public class ModifyServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 //        super.doGet(req, resp);
-        doPost(req,resp);
+//        doPost(req,resp);
 
 //        PrintWriter out = resp.getWriter();
 //        out.println("classes项目全路径:"+this.getClass().getClassLoader().getResource("/").getPath());
@@ -44,160 +37,66 @@ public class ModifyServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        SAXParser parser = null;
-        ModifyScore modifyScore = null;
+        resp.setContentType("text/html;charset=utf-8");
+
+        //将成绩修改信息封装成SOAP消息
+        String sid = req.getParameter("sid");
+        String cid = req.getParameter("cid");
+        String sType = req.getParameter("sType");
+        String score = req.getParameter("score");
+        ModifyScore modifyScore = new ModifyScore(sid,cid,score,sType);
+        String modSoapPath = "C:\\Users\\Administrator\\IdeaProjects\\SOA\\soap-get\\src\\resource\\changeInfo.xml";
+
+        ModScore modSOAP = new ModScore();
+        modSOAP.CreateModScoreSOAP(modifyScore,modSoapPath);
+
+        //解析成绩修改信息的SOAP消息
+        SAXParser parser;
+        ModifyScore modifyScore2 = null;
         try {
             //构建SAXParser
             parser = SAXParserFactory.newInstance().newSAXParser();
-            //
-            //            System.out.println(score.getSid());实例化  DefaultHandler对象
+            //实例化  DefaultHandler对象
             ParseSOAP parseSoap=new ParseSOAP();
             //调用parse()方法
-            parser.parse(new File(this.getClass().getClassLoader().getResource("/").getPath()+"assignment6/client/changeInfo.xml"), parseSoap);
+            parser.parse(new File("C:\\Users\\Administrator\\IdeaProjects\\SOA\\soap-get\\src\\resource\\changeInfo.xml"), parseSoap);
             //遍历结果
-            modifyScore = parseSoap.getModifyScore();
+            modifyScore2 = parseSoap.getModifyScore();
 
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
+        //修改成绩
+        ModifyXML modifyXML = new ModifyXML();
+        String studentListPath = "C:\\Users\\Administrator\\IdeaProjects\\SOA\\soap-get\\src\\resource\\StudentList.xml";
+        modifyXML.updateXML(modifyScore2,studentListPath);
 
-//        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
-//        String line;
-//        StringBuilder sb = new StringBuilder();
-//        PrintWriter out = resp.getWriter();
-//        while ((line = br.readLine()) != null) {
-////            System.out.println(line);
-////            out.println(line);
-//            sb.append(line);
-//        }
+        //获得修改后的成绩信息
+        assert modifyScore2 != null;
+        ArrayList<Score> scoreList = new QueryScore().findScore(modifyScore2.getSid(),studentListPath);
 
-//        ModifyScore modifyScore = new ModifyScore();
-//        try {
-//            MessageFactory msgFactory;
-//            msgFactory = MessageFactory.newInstance();
-//            SOAPMessage reqMsg = msgFactory.createMessage(new MimeHeaders(), new ByteArrayInputStream(sb.toString().getBytes("GBK")));
-//            reqMsg.saveChanges();
-//            SOAPBody body = reqMsg.getSOAPBody();
-//            Iterator<SOAPElement> iterator = body.getChildElements();
-//
-//            while (iterator.hasNext()) {
-//                out.println("cd");
-//                SOAPElement element = (SOAPElement) iterator.next();
-//                if (element == null){
-//                    out.println("fail");
-//                }else {
-//                    out.println(element.getTagName());
-//                    out.println("wt");
-//                }
-//                out.println("tag:"+element.getTagName()+" value:"+element.getValue());
-//                if (element.getTagName().equals("个人编号")) {
-//                    modifyScore.setSid(element.getValue());
-//                }
-//                if (element.getTagName().equals("课程编号")) {
-//                    modifyScore.setCid(element.getValue());
-//                }
-//                if (element.getTagName().equals("得分")) {
-//                    modifyScore.setScore(Integer.parseInt(element.getValue()));
-//                }
-//                if (element.getTagName().equals("成绩性质")) {
-//                    modifyScore.setScoreType(element.getValue());
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        //修改后的成绩的SOAP消息
+        String queryPath = "C:\\Users\\Administrator\\IdeaProjects\\SOA\\soap-get\\src\\resource\\out.xml";
+        QueryScore queryScore = new QueryScore();
+        queryScore.createQueryScoreSOAP(scoreList,queryPath);
 
-        ModifyXMLDom modifyXMLDom = new ModifyXMLDom();
-        String filepath = this.getClass().getClassLoader().getResource("/").getPath()+"assignment6/servlet/StudentList.xml";
-        modifyXMLDom.updateXML(modifyScore,filepath);
-
-
-        String sid = modifyScore.getSid();
-        ArrayList<Score> scoreList = new ArrayList<>();
-
-        //使用sax解析StudentList.xml获取成绩信息
-        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        try {
-            SAXParser saxParser = saxParserFactory.newSAXParser();
-            XMLReader xmlReader = saxParser.getXMLReader();
-            xmlReader.setContentHandler(new MyContentHandler(sid, scoreList));
-            xmlReader.setErrorHandler(new DefaultErrorHandler());
-            xmlReader.parse(filepath);
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
+        //在界面上打印SOAP消息
+        PrintWriter out = resp.getWriter();
+        out.println("得到的SOAP消息为：");
+        File soapFile = new File(queryPath);
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(soapFile), "UTF-8");
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            line = line.replaceAll("<", "&lt");
+            line = line.replaceAll(">", "&gt");
+            out.println(line);
         }
 
-        //创建SOAP消息
-        try {
-            MessageFactory messageFactory = MessageFactory.newInstance();
-            SOAPMessage message = messageFactory.createMessage();
-            SOAPPart part = message.getSOAPPart();
-
-            SOAPEnvelope envelope = part.getEnvelope();
-            SOAPBody body = envelope.getBody();
-
-            //成绩列表为空，说明学号异常
-            if (scoreList.isEmpty()) {
-                SOAPFault fault = body.addFault();
-                fault.setFaultCode("404");
-                fault.setFaultString("学号不存在或者该学号对应的学生成绩不存在");
-            } else {
-                //将查询到的成绩信息放入一个dom中
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                org.w3c.dom.Document resultDOM = documentBuilder.newDocument();
-                org.w3c.dom.Element root = resultDOM.createElement("学生成绩列表");
-
-                for (Score score : scoreList) {
-                    org.w3c.dom.Element scoreElement = resultDOM.createElement("学生成绩");
-
-                    org.w3c.dom.Element pointElement = resultDOM.createElement("得分");
-                    pointElement.setTextContent(String.valueOf(score.getPoint()));
-                    scoreElement.appendChild(pointElement);
-
-                    org.w3c.dom.Element courseIdElement = resultDOM.createElement("课程编号");
-                    courseIdElement.setTextContent(String.valueOf(score.getCourseId()));
-                    scoreElement.appendChild(courseIdElement);
-
-                    org.w3c.dom.Element typeElement = resultDOM.createElement("成绩性质");
-                    typeElement.setTextContent(String.valueOf(score.getType()));
-                    scoreElement.appendChild(typeElement);
-
-                    root.appendChild(scoreElement);
-                }
-                resultDOM.appendChild(root);
-
-                body.addDocument(resultDOM);
-            }
-
-            File soapFile = new File(this.getClass().getClassLoader().getResource("/").getPath()+"assignment6/servlet/out.xml");
-            message.writeTo(new FileOutputStream(soapFile));
-
-            Document doc = (Document) message.getSOAPPart().getEnvelope().getOwnerDocument();
-            StringWriter output = new StringWriter();
-            TransformerFactory.newInstance().newTransformer().transform( new DOMSource((org.w3c.dom.Node) doc), new StreamResult(output));
-            PrintWriter out = resp.getWriter();
-            out.write(output.toString());
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SOAPException e) {
-            e.printStackTrace();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+        bufferedReader.close();
 
 
     }

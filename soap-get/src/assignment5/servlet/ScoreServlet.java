@@ -71,7 +71,7 @@ public class ScoreServlet extends HttpServlet {
             xmlReader.setContentHandler(new MyContentHandler(studentId, scoreList));
             xmlReader.setErrorHandler(new DefaultErrorHandler());
 //            xmlReader.parse(getClass().getResource("StudentList.xml").getPath());
-            xmlReader.parse("C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\SOAHomework\\soap-get\\src\\assignment5\\servlet\\StudentList.xml");
+            xmlReader.parse("C:\\Users\\Administrator\\IdeaProjects\\SOA\\soap-get\\src\\resource\\StudentList.xml");
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -126,7 +126,7 @@ public class ScoreServlet extends HttpServlet {
 //            System.out.println(getClass().getResource("../../../../../../.."));
 
 //            File soapFile = new File(getClass().getResource("out.xml").getPath());
-            File soapFile = new File("C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\SOAHomework\\soap-get\\src\\assignment5\\servlet\\out.xml");
+            File soapFile = new File("C:\\Users\\Administrator\\IdeaProjects\\SOA\\soap-get\\src\\resource\\out.xml");
             message.writeTo(new FileOutputStream(soapFile));
 
             PrintWriter out = response.getWriter();
