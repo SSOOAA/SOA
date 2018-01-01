@@ -1,4 +1,4 @@
-package assignment6.servlet;
+package Utils;
 
 import assignment6.model.ModifyScore;
 import org.w3c.dom.Document;
@@ -19,9 +19,9 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 
-public class ModifyXMLDom {
-    public void updateXML(ModifyScore modifyScore){
-        String filepath = getClass().getResource("StudentList.xml").getPath();
+public class ModifyXML {
+
+    public void updateXML(ModifyScore modifyScore, String filepath){
         File XMLfile = new File(filepath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -30,7 +30,7 @@ public class ModifyXMLDom {
             Document doc = dBuilder.parse(XMLfile);
             doc.getDocumentElement().normalize();
 
-            updateElementValue(doc,modifyScore);
+            updateStudentList(doc,modifyScore);
 
             //write the updated document to file or console
             doc.getDocumentElement().normalize();
@@ -47,7 +47,7 @@ public class ModifyXMLDom {
 
     }
 
-    private static void updateElementValue(Document doc,ModifyScore modifyScore) {
+    private static void updateStudentList(Document doc,ModifyScore modifyScore) {
         NodeList employees = doc.getElementsByTagName("学生");
         Element emp = null;
         //loop for each employee
@@ -75,4 +75,6 @@ public class ModifyXMLDom {
 
         }
     }
+
+
 }

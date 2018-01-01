@@ -19,7 +19,7 @@ public class ChangeInfoServlet extends HttpServlet{
 
         out.println("<html><body>");
         out.println("<h2>修改成绩</h2>");
-        out.println("<form method='POST' action='"+req.getContextPath()+"/createSOAP'>");
+        out.println("<form method='POST' action='"+req.getContextPath()+"/modify'>");
         out.println("<span>学号:</span><input name='sid' type='text' /><br /><br />");
         out.println("<span>课程编号</span><input name='cid' type='text' /><br /><br />");
         out.println("<span>成绩性质：</span><input name='sType' type='text' /><br /><br />");

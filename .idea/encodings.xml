@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/assignment2/readme.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/assignment3/__MACOSX/._readme.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/assignment4/CreateXML.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/assignment4/Main.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/assignment4/ParseXML.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/assignment4/readme.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/assignment2/readme.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/assignment3/__MACOSX/._readme.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/assignment4/CreateXML.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/assignment4/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/assignment4/ParseXML.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/assignment4/readme.txt" charset="UTF-8" />
   </component>
 </project>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:description xmlns:wsdl="http://www.w3.org/ns/wsdl"
+   targetNamespace="http://jw.nju.edu.cn/scorelist/wsdl"
+   xmlns:tns="http://jw.nju.edu.cn/scorelist/wsdl"
+   xmlns:whttp="http://www.w3.org/ns/wsdl/http"
+   xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:msg="http://jw.nju.edu.cn/scorelist/xsd">
+
+  <wsdl:types>
+    <xs:import namespace="http://jw.nju.edu.cn/scorelist/xsd"
+       schemaLocation="scorelist.xsd"/>
+  </wsdl:types>
+
+  <wsdl:interface name="ScoreListInterface">
+    <wsdl:operation name="getScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri" 
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores.
+      </wsdl:documentation>
+      <wsdl:input element="msg:getScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
+    <wsdl:operation name="modifyScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri"
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores.
+      </wsdl:documentation>
+      <wsdl:input element="msg:modifyScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
+        <wsdl:operation name="addScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri"
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores after adding.
+      </wsdl:documentation>
+      <wsdl:input element="msg:addScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
+        <wsdl:operation name="deleteScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri"
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores after deleting.
+      </wsdl:documentation>
+      <wsdl:input element="msg:deleteScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
+
+  </wsdl:interface>
+
+  <wsdl:binding name="ScoreListHTTPBinding"
+     type="http://www.w3.org/ns/wsdl/http"
+     interface="tns:ScoreListInterface">
+    <wsdl:documentation>
+       Using HTTP.
+    </wsdl:documentation>
+    <wsdl:operation ref="tns:getScoreList" whttp:method="GET"/>
+  </wsdl:binding>
+
+  <wsdl:service name="ScoreList" interface="tns:ScoreListInterface">
+    <wsdl:documentation>
+       The score list service.
+    </wsdl:documentation>
+    <wsdl:endpoint name="ScoreListHTTPEndpoint"
+       binding="tns:ScoreListHTTPBinding"
+       address="http://www.Scorestore.com/Scores/">
+    </wsdl:endpoint>
+  </wsdl:service>
+</wsdl:description>

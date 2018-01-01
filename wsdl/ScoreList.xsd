@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://jw.nju.edu.cn/scorelist/xsd"
+   xmlns:tns="http://jw.nju.edu.cn/scorelist/xsd"
+   xmlns:scoresvc="http://jw.nju.edu.cn/score/wsdl"
+   xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+   elementFormDefault="qualified">
+   
+  <element name="getScoreList" type="tns:getScoreListType">
+  	<annotation>
+  	  <documentation>
+         This request element for the score list service.
+  	  </documentation>
+    </annotation>
+  </element>
+
+      <element name="modifyScoreList" type="tns:modifyScoreListType">
+  	<annotation>
+  	  <documentation>
+         This request element for modify score list service.
+  	  </documentation>
+    </annotation>
+  </element>
+
+          <element name="addScoreList" type="tns:addScoreListType">
+  	<annotation>
+  	  <documentation>
+         This request element for adding score list service.
+  	  </documentation>
+    </annotation>
+  </element>
+
+    <element name="deleteScoreList" type="tns:deleteScoreListType">
+  	<annotation>
+  	  <documentation>
+         This request element for adding score list service.
+  	  </documentation>
+    </annotation>
+  </element>
+
+
+  <element name="scorelist" type="tns:scorelistType">
+    <annotation>
+      <documentation>
+         The response element for the score list service.
+      </documentation>
+    </annotation>
+  </element>
+  
+  <complexType name="getScoreListType">
+    <sequence>
+      <element name="studentNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseSubject" type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="course" type="string" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+      <complexType name="modifyScoreListType">
+    <sequence>
+      <element name="studentNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseSubject" type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="course" type="string" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+    <complexType name="addScoreListType">
+    <sequence>
+      <element name="studentNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseSubject" type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="course" type="string" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+    <complexType name="deleteScoreListType">
+    <sequence>
+      <element name="studentNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseSubject" type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="course" type="string" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="scorelistType">
+    <sequence>
+      <element name="score" type="tns:scoreType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="scoreType">
+
+      <element name="studentNumber" type="int"/>
+      <element name="courseNumber" type="int" />
+      <element name="courseSubject" type="string" />
+      <element name="course" type="string" />
+  </complexType>
+</schema>
