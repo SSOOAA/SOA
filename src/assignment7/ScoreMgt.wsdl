@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<description xmlns="http://www.w3.org/ns/wsdl"
+             targetNamespace="http://jw.nju.edu.cn/wsdl/scoreManagement"
+             xmlns:tns="http://jw.nju.edu.cn/wsdl/scoreManagement"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
+             xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+             xmlns:ghns="http://jw.nju.edu.cn/schema">
+    <types>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   namespace="http://jw.nju.edu.cn/schema"
+                   schemaLocation="ScoreMgt.xsd" />
+    </types>
+
+    <interface name="scoreManagementInterface">
+        <fault name="invalidSidFault" element="ghns:invalidSidError" />
+        <fault name="sidNotExistFault" element="ghns:sidNotExistError" />
+        <fault name="invalidScoreFault" element="ghns:invalidScoreError" />
+        <fault name="unselectedCozFault" element="ghns:unselectedCozError" />
+        <fault name="cozNotExistFault" element="=ghns:cozNotExistError" />
+        <fault name="typeNotExistFault" element="ghns:typeNotExistError" />
+
+        <operation name="queryScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+            <input messageLabel="In" element="ghns:sid" />
+            <output messaheLabel="Out" element="ghns:scoreList" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+        </operation>
+
+        <operation name="deleteScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+            <input messageLabel="In" element="ghns:deleteScoreType" />
+            <output messaheLabel="Out" element="ghns:isSuccessful" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
+            <outfault ref="cozNotExistFault" messageLabel="Out" />
+            <outfault ref="typeNotExistFault" messageLabel="Out" />
+        </operation>
+
+        <operation name="modifyScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+            <input messageLabel="In" element="ghns:singleScoreType" />
+            <output messaheLabel="Out" element="ghns:scoreList" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <infault ref="tns:invalidScoreFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
+            <outfault ref="cozNotExistFault" messageLabel="Out" />
+            <outfault ref="typeNotExistFault" messageLabel="Out" />
+        </operation>
+
+        <operation name="addScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+            <input messageLabel="In" element="ghns:singleScoreType" />
+            <output messaheLabel="Out" element="ghns:isSuccessful" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <infault ref="tns:invalidScoreFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
+            <outfault ref="cozNotExistFault" messageLabel="Out" />
+            <outfault ref="typeNotExistFault" messageLabel="Out" />
+        </operation>
+
+    </interface>
+
+    <binding name="scoreMgtBinding" interface="tns:scoreManagementInterface"
+             type="http://www.w3.org/ns/wsdl/soap"
+             wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+        <operation ref="tns:queryScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+        <operation ref="tns:deleteScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+        <operation ref="tns:modifyScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+        <operation ref="tns:addScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+        <fault ref="tns:invalidSidFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:sidNotExistFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:invalidScoreFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:unselectedCozFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:cozNotExistFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:typeNotExistFault"
+               wsoap:code="soap:Sender" />
+    </binding>
+
+    <service name="scoreMgtService"
+             interface="tns:scoreManagementInterface">
+        <endpoint name="scoreMgtEndpoint"
+                  binding="tns:scoreMgtBinding"
+                  address="http://jw.nju.edu.cn/scoreMgt" />
+    </service>
+
+</description>
+
