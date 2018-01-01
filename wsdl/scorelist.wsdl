@@ -33,6 +33,26 @@
       <wsdl:input element="msg:modifyScoreList"/>
       <wsdl:output element="msg:ScoreList"/>
     </wsdl:operation>
+        <wsdl:operation name="addScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri"
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores after adding.
+      </wsdl:documentation>
+      <wsdl:input element="msg:addScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
+        <wsdl:operation name="deleteScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri"
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores after deleting.
+      </wsdl:documentation>
+      <wsdl:input element="msg:deleteScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
 
   </wsdl:interface>
 
