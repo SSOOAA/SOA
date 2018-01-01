@@ -43,5 +43,6 @@
             <element name="duty" type="tns:职务类型"/>
         </sequence>
     </complexType>
+
     <element name="studentToken" type="string"/>
 </schema>

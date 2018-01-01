@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <description xmlns="http://www.w3.org/ns/wsdl"
-             targetNamespace="http://jw.nju.edu.cn/wsdl"
+             targetNamespace="http://jw.nju.edu.cn/wsdl/studentInfoManagement"
              xmlns:jw="http://jw.nju.edu.cn/schema">
     <documentation>
         Description: The definition of faults occurs in the student info management Web Service of NJU.
@@ -42,7 +42,7 @@
                 This fault will occur if the wrong duty type is specified.
             </documentation>
         </fault>
-        <fault name="modifyPermissionDeniedFault" element="jw:modifyPermissionDenied">
+        <fault name="permissionDeniedFault" element="jw:permissionDenied">
             <documentation>
                 Thrown when you don't have the permission to modify the student info.
                 Only if you passed the student authentication, you got the permission.
