@@ -13,7 +13,15 @@
   	  </documentation>
     </annotation>
   </element>
-  
+
+      <element name="modifyScoreList" type="tns:modifyScoreListType">
+  	<annotation>
+  	  <documentation>
+         This request element for modify score list service.
+  	  </documentation>
+    </annotation>
+  </element>
+
   <element name="scorelist" type="tns:scorelistType">
     <annotation>
       <documentation>
@@ -23,6 +31,15 @@
   </element>
   
   <complexType name="getScoreListType">
+    <sequence>
+      <element name="studentNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseNumber" type="int" minOccurs="0" maxOccurs="1"/>
+      <element name="courseSubject" type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="course" type="string" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+
+      <complexType name="modifyScoreListType">
     <sequence>
       <element name="studentNumber" type="int" minOccurs="0" maxOccurs="1"/>
       <element name="courseNumber" type="int" minOccurs="0" maxOccurs="1"/>

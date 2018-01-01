@@ -23,6 +23,17 @@
       <wsdl:input element="msg:getScoreList"/>
       <wsdl:output element="msg:ScoreList"/>
     </wsdl:operation>
+    <wsdl:operation name="modifyScoreList"
+       pattern="http://www.w3.org/ns/wsdl/in-out"
+       style="http://www.w3.org/ns/wsdl/style/iri"
+       wsdlx:safe="true">
+      <wsdl:documentation>
+         This operation returns a list of scores.
+      </wsdl:documentation>
+      <wsdl:input element="msg:modifyScoreList"/>
+      <wsdl:output element="msg:ScoreList"/>
+    </wsdl:operation>
+
   </wsdl:interface>
 
   <wsdl:binding name="ScoreListHTTPBinding"
