@@ -36,8 +36,8 @@
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
             <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
-            <outfault ref="cozNotExistFault" messageLabel="Out" />
-            <outfault ref="typeNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:cozNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:typeNotExistFault" messageLabel="Out" />
         </operation>
 
         <operation name="modifyScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
@@ -49,8 +49,8 @@
             <infault ref="tns:invalidScoreFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
             <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
-            <outfault ref="cozNotExistFault" messageLabel="Out" />
-            <outfault ref="typeNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:cozNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:typeNotExistFault" messageLabel="Out" />
         </operation>
 
         <operation name="addScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
