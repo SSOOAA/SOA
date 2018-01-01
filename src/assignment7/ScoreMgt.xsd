@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://jw.nju.edu.cn/schema"
+        xmlns:tns="http://jw.nju.edu.cn/schema"
+        elementFormDefault="qualified">
+
+    <include schemaLocation="../assignment2/ScoreList.xsd" />
+    <include schemaLocation="../assignment2/Student.xsd" />
+
+    <element name="invalidSidError" type="string" />
+    <element name="sidNotExistError" type="string" />
+    <element name="invalidScoreError" type="string" />
+    <element name="unselectedCozError" type="string" />
+    <element name="cozNotExistError" type="string" />
+    <element name="typeNotExistError" type="string" />
+
+    <element name="isSuccessful" type="boolean" />
+    <element name="deleteScore" type="tns:deleteScoreType" />
+    <element name="singleScore" type="tns:singleScoreType" />
+
+    <complexType name="deleteScoreType">
+        <sequence>
+            <element name="sid" type="tns:学号类型" />
+            <element name="cid" type="tns:课程编号类型" />
+            <element name="scoreType" type="tns:成绩性质类型" />
+        </sequence>
+    </complexType>
+
+    <complexType name="singleScoreType">
+        <sequence>
+            <element name="sid" type="tns:学号类型" />
+            <element name="cid" type="tns:课程编号类型" />
+            <element name="scoreType" type="tns:成绩性质类型" />
+            <element name="score" type="tns:得分类型" />
+        </sequence>
+    </complexType>
+
+</schema>

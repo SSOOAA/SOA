@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<description xmlns="http://www.w3.org/ns/wsdl"
+             targetNamespace="http://jw.nju.edu.cn/wsdl"
+             xmlns:jw="http://jw.nju.edu.cn/schema">
+    <documentation>
+        Description: The definition of faults occurs in the student info management Web Service of NJU.
+        Author: Xu Yangchen
+        Date: 1/1/2018
+    </documentation>
+    <types>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://jw.nju.edu.cn/schema"
+                   schemaLocation="StudentInfoManagementFaults.xsd"/>
+    </types>
+    <interface name="studentInfoManagementFaults">
+        <fault name="invalidStudentIDFault" element="jw:invalidStudentID">
+            <documentation>
+                English:
+                Thrown when the student ID is invalid.
+                This fault will occur if the wrong student ID type is specified.
+            </documentation>
+        </fault>
+        <fault name="studentIDNotExistsFault" element="jw:studentIDNotExists">
+            <documentation>
+                Thrown when the student ID is not exists.
+            </documentation>
+        </fault>
+        <fault name="invalidNameFault" element="jw:invalidName">
+            <documentation>
+                Thrown when the name is invalid.
+                This fault will occur if the wrong name type is specified.
+            </documentation>
+        </fault>
+        <fault name="invalidDepartmentFault" element="jw:invalidDepartment">
+            <documentation>
+                Thrown when the department is invalid.
+                This fault will occur if the wrong department type is specified.
+            </documentation>
+        </fault>
+        <fault name="invalidDutyFault" element="jw:invalidDuty">
+            <documentation>
+                Thrown when the duty is invalid.
+                This fault will occur if the wrong duty type is specified.
+            </documentation>
+        </fault>
+        <fault name="modifyPermissionDeniedFault" element="jw:modifyPermissionDenied">
+            <documentation>
+                Thrown when you don't have the permission to modify the student info.
+                Only if you passed the student authentication, you got the permission.
+            </documentation>
+        </fault>
+        <fault name="invalidResponseDataFault" element="jw:invalidResponseDataError">
+            <documentation>
+                Thrown when the response data is invalid.
+                This fault will occur if the wrong response data type is specified.
+            </documentation>
+        </fault>
+
+    </interface>
+
+</description>
