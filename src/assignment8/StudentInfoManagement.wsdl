@@ -23,6 +23,7 @@
 
         <operation name="retrieveStudentInfoOperation"
                    pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
 
             <input messageLabel="Token" element="jw:studentToken"/>
@@ -35,6 +36,7 @@
 
         <operation name="modifyStudentInfoOperation"
                    pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
 
             <input messageLabel="Token" element="jw:studentToken"/>
