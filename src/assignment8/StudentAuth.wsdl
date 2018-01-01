@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<descirption targetNamespace="http://jw.nju.edu.cn/wsdl"
+<descirption targetNamespace="http://jw.nju.edu.cn/wsdl/studentAuth"
              xmlns:tns="http://jw.nju.edu.cn/wsdl"
              xmlns="http://www.w3.org/ns/wsdl"
              xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -14,6 +14,12 @@
 
     <types>
 
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   namespace="http://finance.example.com/CreditCardFaults/xsd"
+                   schemaLocation="EmailAuth.xsd"/>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   namespace="http://finance.example.com/CreditCardFaults/xsd"
+                   schemaLocation="StudentIDAuth.xsd"/>
     </types>
 
     <include location="EmailAuthFault.wsdl"/>
@@ -21,7 +27,7 @@
     <include location="StudentIDAuth.wsdl"/>
 
     <interface name="emailAuthInterface" extends="jw:emailAuthFault">
-        <operation name="emailAuth"
+        <operation name="emailAuthOperation"
                    pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
@@ -30,8 +36,8 @@
             <input messageLabel="In" element="jw:emailAuthMsgType"></input>
             <output messageLabel="Out" element="jw:studentToken"></output>
 
-            <outfault ref="jw:wrongEmailFormat" messageLabel="Out"></outfault>
-            <outfault ref="jw:wrongEmailAuth" messageLabel="Out"></outfault>
+            <infault ref="jw:invalidEmailAccountError" messageLabel="In"></infault>
+            <outfault ref="jw:emailAuthError" messageLabel="Out"></outfault>
 
 
         </operation>
@@ -40,7 +46,7 @@
     </interface>
 
     <interface name="studentIDAuthInterface" extends="jw:studentIDAuthFault">
-        <operation name="studentIDAuth"
+        <operation name="studentIDAuthOperation"
                    pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
@@ -49,8 +55,9 @@
             <input messageLabel="In" element="jw:StudentIDAuthMsgType"></input>
             <output messageLabel="Out" element="jw:studentToken"></output>
 
-            <outfault ref="jw:wrongStudentIDFormat" messageLabel="Out"></outfault>
-            <outfault ref="jw:wrongStudentIDAuth" messageLabel="Out"></outfault>
+            <infault ref="jw:invalidStudentIDError" messageLabel="In"></infault>
+            <outfault ref="jw:studentIDNotExistError" messageLabel="Out"></outfault>
+            <outfault ref="jw:studentIDAuthError" messageLabel="Out"></outfault>
 
 
         </operation>
@@ -61,10 +68,10 @@
     <binding name="emailAuthBinding" interface="tns:emailAuthInterface"
              type="http://www.w3.org/ns/wsdl/soap"
              wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
-        <operation ref="emailAuth" wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response"/>
-        <fault ref="tns:wrongEmailFormat"
+        <operation ref="emailAuthOperation" wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response"/>
+        <fault ref="tns:invalidEmailAccountError"
                wsoap:code="soap:Sender"/>
-        <fault ref="tns:wrongEmailAuth"
+        <fault ref="tns:emailAuthError"
                wsoap:code="soap:Sender"/>
 
 
@@ -73,10 +80,12 @@
     <binding name="studentIDAuthBinding" interface="tns:studentIDAuthInterface"
              type="http://www.w3.org/ns/wsdl/soap"
              wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
-        <operation ref="studentIDAuth" wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response"/>
-        <fault ref="tns:wrongStudentIDFormat"
+        <operation ref="studentIDAuthOperation" wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response"/>
+        <fault ref="tns:invalidStudentIDError"
                wsoap:code="soap:Sender"/>
-        <fault ref="tns:wrongStudentIDAuth"
+        <fault ref="tns:studentIDNotExistError"
+               wsoap:code="soap:Sender"/>
+        <fault ref="tns:studentIDAuthError"
                wsoap:code="soap:Sender"/>
     </binding>
 
@@ -85,14 +94,14 @@
              interface="tns:emailAuthInterface">
         <endpoint name="emailAuthEndpoint"
                   binding="tns:emailAuthBinding"
-                  address="http://localhost:8080/emailAuth"/>
+                  address="http://jw.nju.edu.cn/emailAuth"/>
     </service>
 
     <service name="studentIDAuthService"
              interface="tns:studentIDAuthInterface">
         <endpoint name="studentIDAuthEndpoint"
                   binding="tns:studentIDAuthBinding"
-                  address="http://localhost:8080/StudentIDAuth"/>
+                  address="http://jw.nju.edu.cn/StudentIDAuth"/>
     </service>
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<description targetNamespace="http://jw.nju.edu.cn/wsdl"
+<description targetNamespace="http://jw.nju.edu.cn/wsdl/studentAuth"
              xmlns:tns="http://jw.nju.edu.cn/wsdl"
              xmlns:jw="http://jw.nju.edu.cn/schema"
              xmlns="http://www.w3.org/ns/wsdl">
@@ -10,16 +10,20 @@
     <types>
         <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
                    namespace="http://finance.example.com/CreditCardFaults/xsd"
-                   schemaLocation=""/>
+                   schemaLocation="StudentIDAuth.xsd"/>
 
     </types>
 
     <interface name="studentIDAuthFault">
-        <fault name="wrongStudentIDFormat" element="">
+        <fault name="invalidStudentIDError" element="invalidStudentIDError">
             <documention>Thrown when studentID format is wrong</documention>
         </fault>
 
-        <fault name="wrongStudentIDAuth" element="">
+        <fault name="studentIDNotExistError" element="studentIDNotExistError">
+            <documention>Thrown when studentID does not exist</documention>
+        </fault>
+
+        <fault name="studentIDAuthError" element="studentIDAuthError">
             <documention>Thrown when studentID authentication is wrong</documention>
         </fault>
     </interface>

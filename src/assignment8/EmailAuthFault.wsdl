@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<description targetNamespace="http://jw.nju.edu.cn/wsdl"
+<description targetNamespace="http://jw.nju.edu.cn/wsdl/studentAuth"
              xmlns:tns="http://jw.nju.edu.cn/wsdl"
              xmlns:jw="http://jw.nju.edu.cn/schema"
              xmlns="http://www.w3.org/ns/wsdl">
@@ -10,16 +10,16 @@
     <types>
         <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
                    namespace="http://finance.example.com/CreditCardFaults/xsd"
-                   schemaLocation=""/>
+                   schemaLocation="EmailAuth.xsd"/>
 
     </types>
 
     <interface name="emailAuthFault">
-        <fault name="wrongEmailFormat" element="">
+        <fault name="invalidEmailAccountError" element="jw:invalidEmailAccountError">
             <documention>Thrown when email format is wrong</documention>
         </fault>
 
-        <fault name="wrongEmailAuth" element="">
+        <fault name="emailAuthError" element="emailAuthError">
             <documention>Thrown when email authentication is wrong</documention>
         </fault>
     </interface>

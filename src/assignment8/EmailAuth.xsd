@@ -19,37 +19,8 @@
         </restriction>
     </simpleType>
 
+    <element name="invalidEmailAccountError" type="string"></element>
+    <element name="emailAuthError" type="string"></element>
 
-    <!--<simpleType name="邮箱密码类型">-->
-    <!--<restriction base="string">-->
-    <!--<minLength value="0"></minLength>-->
-    <!--</restriction>-->
-    <!--</simpleType>-->
-
-    <!--<complexType name="邮箱认证格式错误消息类型">-->
-    <!--<sequence>-->
-    <!--<element name="错误码" type="tns:邮箱认证格式错误消息错误码类型"> </element>-->
-    <!--<element name="错误说明" type="string"></element>-->
-    <!--</sequence>-->
-    <!--</complexType>-->
-    <!---->
-    <!--<simpleType name="邮箱认证格式错误消息错误码类型" >-->
-    <!--<restriction base="int">-->
-    <!--<enumeration value="1"></enumeration>-->
-    <!--</restriction>-->
-    <!--</simpleType>-->
-
-    <!--<complexType name="邮箱认证错误消息类型">-->
-    <!--<sequence>-->
-    <!--<element name="错误码" type="tns:邮箱认证错误消息错误码类型"> </element>-->
-    <!--<element name="错误说明" type="string"></element>-->
-    <!--</sequence>-->
-    <!--</complexType>-->
-
-    <!--<simpleType name="邮箱认证错误消息错误码类型" >-->
-    <!--<restriction base="int">-->
-    <!--<enumeration value="2"></enumeration>-->
-    <!--</restriction>-->
-    <!--</simpleType>-->
 
 </schema>
