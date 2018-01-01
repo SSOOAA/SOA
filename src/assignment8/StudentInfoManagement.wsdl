@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <description xmlns="http://www.w3.org/ns/wsdl"
-             targetNamespace="http://jw.nju.edu.cn/wsdl"
+             targetNamespace="http://jw.nju.edu.cn/wsdl/studentInfoManagement"
              xmlns:tns="http://jw.nju.edu.cn/wsdl"
              xmlns:jw="http://jw.nju.edu.cn/schema"
              xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
@@ -20,12 +20,15 @@
     <interface name="studentInfoInterface" extends="tns:studentInfoManagementFaults">
 
         <operation name="retrieveStudentInfoOperation" pattern="http://www.w3.org/ns/wsdl/in-out">
+            <input messageLabel="Token" element="jw:studentToken"/>
 
             <input messageLabel="In" element="jw:retrieveStudentInfo"/>
             <output messageLabel="Out" element="jw:retrieveStudentInfoResponse"/>
 
             <infault ref="tns:invalidStudentID" messageLabel="In"/>
             <infault ref="tns:studentIDNotExists" messageLabel="In"/>
+
+            <infault ref="tns:permissionDenied" messageLabel="Token"/>
 
             <outfault ref="tns:invalidDataError" messageLabel="Out"/>
 
@@ -43,9 +46,8 @@
             <infault ref="tns:invalidDepartment" messageLabel="In"/>
             <infault ref="tns:invalidDuty" messageLabel="In"/>
 
-            <infault ref="tns:modifyPermissionDenied" messageLabel="Token"/>
+            <infault ref="tns:permissionDenied" messageLabel="Token"/>
 
-            <outfault ref="tns:invalidDataError" messageLabel="Out"/>
         </operation>
 
     </interface>
@@ -64,7 +66,7 @@
         <fault ref="tns:invalidName" wsoap:code="soap:Sender"/>
         <fault ref="tns:invalidDepartment" wsoap:code="soap:Sender"/>
         <fault ref="tns:invalidDuty" wsoap:code="soap:Sender"/>
-        <fault ref="tns:modifyPermissionDenied" wsoap:code="soap:Sender"/>
+        <fault ref="tns:permissionDenied" wsoap:code="soap:Sender"/>
         <fault ref="tns:invalidDataError" wsoap:code="soap:Sender"/>
 
     </binding>

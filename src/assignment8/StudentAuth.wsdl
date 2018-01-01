@@ -16,11 +16,9 @@
 
     </types>
 
-    <import namespace="http://jw.nju.edu.cn/wsdl"
-            location="EmailAuthFault.wsdl"/>
+    <include location="EmailAuthFault.wsdl"/>
 
-    <import namespace="http://jw.nju.edu.cn/wsdl"
-            location="StudentIDAuth.wsdl"/>
+    <include location="StudentIDAuth.wsdl"/>
 
     <interface name="emailAuthInterface" extends="jw:emailAuthFault">
         <operation name="emailAuth"
@@ -30,7 +28,7 @@
 
 
             <input messageLabel="In" element="jw:emailAuthMsgType"></input>
-            <output messageLabel="Out" element=""></output>
+            <output messageLabel="Out" element="jw:studentToken"></output>
 
             <outfault ref="jw:wrongEmailFormat" messageLabel="Out"></outfault>
             <outfault ref="jw:wrongEmailAuth" messageLabel="Out"></outfault>
@@ -49,7 +47,7 @@
 
 
             <input messageLabel="In" element="jw:StudentIDAuthMsgType"></input>
-            <output messageLabel="Out" element=""></output>
+            <output messageLabel="Out" element="jw:studentToken"></output>
 
             <outfault ref="jw:wrongStudentIDFormat" messageLabel="Out"></outfault>
             <outfault ref="jw:wrongStudentIDAuth" messageLabel="Out"></outfault>
