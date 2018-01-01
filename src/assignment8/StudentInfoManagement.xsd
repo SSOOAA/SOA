@@ -7,13 +7,6 @@
     <include schemaLocation="../assignment2/Student.xsd"/>
     <include schemaLocation="../assignment2/PersonInfo.xsd"/>
 
-    <element name="retrieveStudentInfo" type="tns:tRetrieveStudentInfo"/>
-    <complexType name="tRetrieveStudentInfo">
-        <sequence>
-            <element name="studentID" type="tns:学号类型"/>
-        </sequence>
-    </complexType>
-
     <element name="retrieveStudentInfoResponse" type="tns:tRetrieveStudentInfoResponse"/>
     <complexType name="tRetrieveStudentInfoResponse">
         <sequence>
@@ -45,4 +38,5 @@
     </complexType>
 
     <element name="studentToken" type="string"/>
+
 </schema>

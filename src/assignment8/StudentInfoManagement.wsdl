@@ -20,16 +20,11 @@
     <interface name="studentInfoInterface" extends="tns:studentInfoManagementFaults">
 
         <operation name="retrieveStudentInfoOperation" pattern="http://www.w3.org/ns/wsdl/in-out">
-            <input messageLabel="Token" element="jw:studentToken"/>
 
-            <input messageLabel="In" element="jw:retrieveStudentInfo"/>
+            <input messageLabel="Token" element="jw:studentToken"/>
             <output messageLabel="Out" element="jw:retrieveStudentInfoResponse"/>
 
-            <infault ref="tns:invalidStudentID" messageLabel="In"/>
-            <infault ref="tns:studentIDNotExists" messageLabel="In"/>
-
-            <infault ref="tns:permissionDenied" messageLabel="Token"/>
-
+            <outfault ref="tns:permissionDenied" messageLabel="Out"/>
             <outfault ref="tns:invalidDataError" messageLabel="Out"/>
 
         </operation>
@@ -40,13 +35,11 @@
             <input messageLabel="In" element="jw:modifyStudentInfo"/>
             <output messageLabel="Out" element="jw:modifyStudentInfoResponse"/>
 
-            <infault ref="tns:invalidStudentID" messageLabel="In"/>
-            <infault ref="tns:studentIDNotExists" messageLabel="In"/>
             <infault ref="tns:invalidName" messageLabel="In"/>
             <infault ref="tns:invalidDepartment" messageLabel="In"/>
             <infault ref="tns:invalidDuty" messageLabel="In"/>
 
-            <infault ref="tns:permissionDenied" messageLabel="Token"/>
+            <outfault ref="tns:permissionDenied" messageLabel="Out"/>
 
         </operation>
 
@@ -61,8 +54,6 @@
         <operation ref="tns:modifyStudentInfoOperation"
                    wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response"/>
 
-        <fault ref="tns:invalidStudentID" wsoap:code="soap:Sender"/>
-        <fault ref="tns:studentIDNotExists" wsoap:code="soap:Sender"/>
         <fault ref="tns:invalidName" wsoap:code="soap:Sender"/>
         <fault ref="tns:invalidDepartment" wsoap:code="soap:Sender"/>
         <fault ref="tns:invalidDuty" wsoap:code="soap:Sender"/>
