@@ -51,29 +51,28 @@
 
     <complexType name="学生个人信息管理部门内容错误消息类型">
         <sequence>
-            <element name="错误码" type="tns:学生个人信息管理部门内容错误消息错误码类型"> </element>
+            <element name="错误码" type="tns:学生个人信息管理部门内容错误消息错误码类型"></element>
             <element name="错误说明" type="string"></element>
         </sequence>
     </complexType>
 
-    <simpleType name="学生个人信息管理部门内容错误消息错误码类型" >
+    <simpleType name="学生个人信息管理部门内容错误消息错误码类型">
         <restriction base="int">
             <enumeration value="5"></enumeration>
         </restriction>
     </simpleType>
     <complexType name="学生个人信息管理职务内容错误消息类型">
         <sequence>
-            <element name="错误码" type="tns:学生个人信息管理职务内容错误消息错误码类型"> </element>
+            <element name="错误码" type="tns:学生个人信息管理职务内容错误消息错误码类型"></element>
             <element name="错误说明" type="string"></element>
         </sequence>
     </complexType>
 
-    <simpleType name="学生个人信息管理职务内容错误消息错误码类型" >
+    <simpleType name="学生个人信息管理职务内容错误消息错误码类型">
         <restriction base="int">
             <enumeration value="6"></enumeration>
         </restriction>
     </simpleType>
-
 
 
 </schema>

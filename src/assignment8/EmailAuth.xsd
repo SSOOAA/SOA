@@ -4,51 +4,51 @@
         xmlns:tns="http://jw.nju.edu.cn/schema"
         elementFormDefault="qualified">
 
-    <element name="EmailAuthMsg" type="tns:邮箱认证消息类型"></element>
+    <element name="EmailAuthMsg" type="tns:emailAuthMsgType"></element>
 
-    <complexType name="邮箱认证消息类型">
+    <complexType name="emailAuthMsgType">
         <sequence>
-            <element name="邮箱账号" type="tns:邮箱账号类型"></element>
-            <element name="邮箱密码" type="string"></element>
+            <element name="emailAccount" type="tns:emailAccount"></element>
+            <element name="emailPassword" type="string"></element>
         </sequence>
     </complexType>
 
-    <simpleType name="邮箱账号类型">
+    <simpleType name="emailAccount">
         <restriction base="string">
             <pattern value="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"></pattern>
         </restriction>
     </simpleType>
 
     <!--<simpleType name="邮箱密码类型">-->
-        <!--<restriction base="string">-->
-            <!--<minLength value="0"></minLength>-->
-        <!--</restriction>-->
+    <!--<restriction base="string">-->
+    <!--<minLength value="0"></minLength>-->
+    <!--</restriction>-->
     <!--</simpleType>-->
-    
-    <complexType name="邮箱认证格式错误消息类型">
-        <sequence>
-            <element name="错误码" type="tns:邮箱认证格式错误消息错误码类型"> </element>
-            <element name="错误说明" type="string"></element>
-        </sequence>
-    </complexType>
-    
-    <simpleType name="邮箱认证格式错误消息错误码类型" >
-        <restriction base="int">
-            <enumeration value="1"></enumeration>
-        </restriction>
-    </simpleType>
 
-    <complexType name="邮箱认证错误消息类型">
-        <sequence>
-            <element name="错误码" type="tns:邮箱认证错误消息错误码类型"> </element>
-            <element name="错误说明" type="string"></element>
-        </sequence>
-    </complexType>
+    <!--<complexType name="邮箱认证格式错误消息类型">-->
+    <!--<sequence>-->
+    <!--<element name="错误码" type="tns:邮箱认证格式错误消息错误码类型"> </element>-->
+    <!--<element name="错误说明" type="string"></element>-->
+    <!--</sequence>-->
+    <!--</complexType>-->
+    <!---->
+    <!--<simpleType name="邮箱认证格式错误消息错误码类型" >-->
+    <!--<restriction base="int">-->
+    <!--<enumeration value="1"></enumeration>-->
+    <!--</restriction>-->
+    <!--</simpleType>-->
 
-    <simpleType name="邮箱认证错误消息错误码类型" >
-        <restriction base="int">
-            <enumeration value="2"></enumeration>
-        </restriction>
-    </simpleType>
+    <!--<complexType name="邮箱认证错误消息类型">-->
+    <!--<sequence>-->
+    <!--<element name="错误码" type="tns:邮箱认证错误消息错误码类型"> </element>-->
+    <!--<element name="错误说明" type="string"></element>-->
+    <!--</sequence>-->
+    <!--</complexType>-->
+
+    <!--<simpleType name="邮箱认证错误消息错误码类型" >-->
+    <!--<restriction base="int">-->
+    <!--<enumeration value="2"></enumeration>-->
+    <!--</restriction>-->
+    <!--</simpleType>-->
 
 </schema>

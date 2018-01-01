@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descirption targetNamespace="http://jw.nju.edu.cn/wsdl"
+             xmlns:tns="http://jw.nju.edu.cn/wsdl"
+             xmlns="http://www.w3.org/ns/wsdl"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+             xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
+             xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+             xmlns:jw="http://jw.nju.edu.cn/schema"
+>
+    <documention>
+        describe student-authentication-service,including email authentication and studentID authentication
+    </documention>
+
+    <types>
+
+    </types>
+
+    <import namespace="http://jw.nju.edu.cn/wsdl"
+            location="EmailAuthFault.wsdl"/>
+
+    <import namespace="http://jw.nju.edu.cn/wsdl"
+            location="StudentIDAuth.wsdl"/>
+
+    <interface name="emailAuthInterface" extends="jw:emailAuthFault">
+        <operation name="emailAuth"
+                   pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+
+
+            <input messageLabel="In" element="jw:emailAuthMsgType"></input>
+            <output messageLabel="Out" element=""></output>
+
+            <outfault ref="jw:wrongEmailFormat" messageLabel="Out"></outfault>
+            <outfault ref="jw:wrongEmailAuth" messageLabel="Out"></outfault>
+
+
+        </operation>
+
+
+    </interface>
+
+    <interface name="studentIDAuthInterface" extends="jw:studentIDAuthFault">
+        <operation name="studentIDAuth"
+                   pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+
+
+            <input messageLabel="In" element="jw:StudentIDAuthMsgType"></input>
+            <output messageLabel="Out" element=""></output>
+
+            <outfault ref="jw:wrongStudentIDFormat" messageLabel="Out"></outfault>
+            <outfault ref="jw:wrongStudentIDAuth" messageLabel="Out"></outfault>
+
+
+        </operation>
+
+
+    </interface>
+
+    <binding name="emailAuthBinding" interface="tns:emailAuthInterface"
+             type="http://www.w3.org/ns/wsdl/soap"
+             wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+        <operation ref="emailAuth" wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response"/>
+        <fault ref="tns:wrongEmailFormat"
+               wsoap:code="soap:Sender"/>
+        <fault ref="tns:wrongEmailAuth"
+               wsoap:code="soap:Sender"/>
+
+
+    </binding>
+
+    <binding name="studentIDAuthBinding" interface="tns:studentIDAuthInterface"
+             type="http://www.w3.org/ns/wsdl/soap"
+             wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+        <operation ref="studentIDAuth" wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response"/>
+        <fault ref="tns:wrongStudentIDFormat"
+               wsoap:code="soap:Sender"/>
+        <fault ref="tns:wrongStudentIDAuth"
+               wsoap:code="soap:Sender"/>
+    </binding>
+
+
+    <service name="emailAuthService"
+             interface="tns:emailAuthInterface">
+        <endpoint name="emailAuthEndpoint"
+                  binding="tns:emailAuthBinding"
+                  address="http://localhost:8080/emailAuth"/>
+    </service>
+
+    <service name="studentIDAuthService"
+             interface="tns:studentIDAuthInterface">
+        <endpoint name="studentIDAuthEndpoint"
+                  binding="tns:studentIDAuthBinding"
+                  address="http://localhost:8080/StudentIDAuth"/>
+    </service>
+
+
+</descirption>
