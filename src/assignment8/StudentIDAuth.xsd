@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://jw.nju.edu.cn/schema"
+        xmlns:tns="http://jw.nju.edu.cn/schema"
+        elementFormDefault="qualified">
+
+    <include schemaLocation="../assignment2/Student.xsd"></include>
+
+    <complexType name="学生账号认证消息类型">
+        <sequence>
+            <element name="学号" type="tns:学号类型"></element>
+            <element name="密码" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <!--<simpleType name="学号认证密码类型">-->
+        <!--<restriction base="string">-->
+            <!--<minLength value="0"></minLength>-->
+        <!--</restriction>-->
+    <!--</simpleType>-->
+
+
+    <complexType name="学生账号认证格式错误消息类型">
+        <sequence>
+            <element name="错误码" type="tns:学生账号认证格式错误消息错误码类型"> </element>
+            <element name="错误说明" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="学生账号认证格式错误消息错误码类型" >
+        <restriction base="int">
+            <enumeration value="3"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <complexType name="学生账号认证错误消息类型">
+        <sequence>
+            <element name="错误码" type="tns:学生账号认证错误消息错误码类型"> </element>
+            <element name="错误说明" type="string"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="学生账号认证错误消息错误码类型" >
+        <restriction base="int">
+            <enumeration value="4"></enumeration>
+        </restriction>
+    </simpleType>
+
+</schema>
