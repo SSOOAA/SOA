@@ -19,7 +19,7 @@
             <documention>Thrown when email format is wrong</documention>
         </fault>
 
-        <fault name="emailAuthError" element="emailAuthError">
+        <fault name="emailAuthError" element="jw:emailAuthError">
             <documention>Thrown when email authentication is wrong</documention>
         </fault>
     </interface>
