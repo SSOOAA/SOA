@@ -14,15 +14,47 @@
     <element name="cozNotExistError" type="string" />
     <element name="typeNotExistError" type="string" />
 
-    <element name="isSuccessful" type="boolean" />
-    <element name="deleteScore" type="tns:deleteScoreType" />
-    <element name="singleScore" type="tns:singleScoreType" />
+    <element name="queryScore" type="tns:queryScoreType" />
+    <complexType name="queryScoreType">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="sid" type="tns:学号类型" />
+        </sequence>
+    </complexType>
 
+    <element name="queryResult" type="tns:queryResultType" />
+    <complexType name="queryResultType">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="sid" type="tns:学号类型" />
+            <element name="scoreList" type="tns:学生成绩列表类型" />
+        </sequence>
+    </complexType>
+
+    <element name="deleteScore" type="tns:deleteScoreType" />
     <complexType name="deleteScoreType">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="singleDelete" type="tns:singleDeleteScoreType" />
+        </sequence>
+    </complexType>
+
+    <complexType name="singleDeleteScoreType">
         <sequence>
             <element name="sid" type="tns:学号类型" />
             <element name="cid" type="tns:课程编号类型" />
             <element name="scoreType" type="tns:成绩性质类型" />
+        </sequence>
+    </complexType>
+
+    <element name="deleteResult" type="boolean" />
+
+    <element name="modifyScore" type="tns:updateScoreType"/>
+    <element name="modifyResult" type="tns:queryResultType"/>
+
+    <element name="addScore" type="tns:updateScoreType" />
+    <element name="addResult" type="boolean" />
+
+    <complexType name="updateScoreType">
+        <sequence minOccurs="1" maxOccurs="unbounded">
+            <element name="singleScore" type="tns:singleScoreType" />
         </sequence>
     </complexType>
 
