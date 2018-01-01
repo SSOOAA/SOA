@@ -15,15 +15,15 @@
     </types>
 
     <interface name="studentIDAuthFault">
-        <fault name="invalidStudentIDError" element="invalidStudentIDError">
+        <fault name="invalidStudentIDError" element="jw:invalidStudentIDError">
             <documention>Thrown when studentID format is wrong</documention>
         </fault>
 
-        <fault name="studentIDNotExistError" element="studentIDNotExistError">
+        <fault name="studentIDNotExistError" element="jw:studentIDNotExistError">
             <documention>Thrown when studentID does not exist</documention>
         </fault>
 
-        <fault name="studentIDAuthError" element="studentIDAuthError">
+        <fault name="studentIDAuthError" element="jw:studentIDAuthError">
             <documention>Thrown when studentID authentication is wrong</documention>
         </fault>
     </interface>
