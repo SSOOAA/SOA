@@ -4,23 +4,23 @@
         xmlns:tns="http://jw.nju.edu.cn/schema"
         elementFormDefault="qualified">
 
-    <element name="EmailAuthMsg" type="tns:emailAuthMsgType"></element>
+    <element name="EmailAuthMsg" type="tns:emailAuthMsgType"/>
 
     <complexType name="emailAuthMsgType">
         <sequence>
-            <element name="emailAccount" type="tns:emailAccount"></element>
-            <element name="emailPassword" type="string"></element>
+            <element name="emailAccount" type="tns:emailAccount"/>
+            <element name="emailPassword" type="string"/>
         </sequence>
     </complexType>
 
     <simpleType name="emailAccount">
         <restriction base="string">
-            <pattern value="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"></pattern>
+            <pattern value="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"/>
         </restriction>
     </simpleType>
 
-    <element name="invalidEmailAccountError" type="string"></element>
-    <element name="emailAuthError" type="string"></element>
+    <element name="invalidEmailAccountError" type="string"/>
+    <element name="emailAuthError" type="string"/>
 
 
 </schema>

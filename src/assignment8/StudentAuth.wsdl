@@ -33,11 +33,11 @@
                    wsdlx:safe="true">
 
 
-            <input messageLabel="In" element="jw:emailAuthMsgType"></input>
-            <output messageLabel="Out" element="jw:studentToken"></output>
+            <input messageLabel="In" element="jw:emailAuthMsgType"/>
+            <output messageLabel="Out" element="jw:studentToken"/>
 
-            <infault ref="jw:invalidEmailAccountError" messageLabel="In"></infault>
-            <outfault ref="jw:emailAuthError" messageLabel="Out"></outfault>
+            <infault ref="jw:invalidEmailAccountError" messageLabel="In"/>
+            <outfault ref="jw:emailAuthError" messageLabel="Out"/>
 
 
         </operation>
@@ -52,12 +52,12 @@
                    wsdlx:safe="true">
 
 
-            <input messageLabel="In" element="jw:StudentIDAuthMsgType"></input>
-            <output messageLabel="Out" element="jw:studentToken"></output>
+            <input messageLabel="In" element="jw:StudentIDAuthMsgType"/>
+            <output messageLabel="Out" element="jw:studentToken"/>
 
-            <infault ref="jw:invalidStudentIDError" messageLabel="In"></infault>
-            <outfault ref="jw:studentIDNotExistError" messageLabel="Out"></outfault>
-            <outfault ref="jw:studentIDAuthError" messageLabel="Out"></outfault>
+            <infault ref="jw:invalidStudentIDError" messageLabel="In"/>
+            <outfault ref="jw:studentIDNotExistError" messageLabel="Out"/>
+            <outfault ref="jw:studentIDAuthError" messageLabel="Out"/>
 
 
         </operation>

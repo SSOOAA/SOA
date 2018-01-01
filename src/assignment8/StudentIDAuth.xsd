@@ -4,18 +4,18 @@
         xmlns:tns="http://jw.nju.edu.cn/schema"
         elementFormDefault="qualified">
 
-    <include schemaLocation="../assignment2/Student.xsd"></include>
+    <include schemaLocation="../assignment2/Student.xsd"/>
 
     <complexType name="StudentIDAuthMsgType">
         <sequence>
-            <element name="StudentID" type="tns:学号类型"></element>
-            <element name="password" type="string"></element>
+            <element name="StudentID" type="tns:学号类型"/>
+            <element name="password" type="string"/>
         </sequence>
     </complexType>
 
-    <element name="invalidStudentIDError" type="string"></element>
-    <element name="studentIDNotExistError" type="string"></element>
-    <element name="studentIDAuthError" type="string"></element>
+    <element name="invalidStudentIDError" type="string"/>
+    <element name="studentIDNotExistError" type="string"/>
+    <element name="studentIDAuthError" type="string"/>
 
 
 
