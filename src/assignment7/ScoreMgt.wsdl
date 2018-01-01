@@ -2,10 +2,9 @@
 <description xmlns="http://www.w3.org/ns/wsdl"
              targetNamespace="http://jw.nju.edu.cn/wsdl/scoreManagement"
              xmlns:tns="http://jw.nju.edu.cn/wsdl/scoreManagement"
-             xmlns:xs="http://www.w3.org/2001/XMLSchema"
              xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
              xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
-             xmlns:ghns="http://jw.nju.edu.cn/schema">
+             xmlns:jw="http://jw.nju.edu.cn/schema">
     <types>
         <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
                    namespace="http://jw.nju.edu.cn/schema"
@@ -13,27 +12,27 @@
     </types>
 
     <interface name="scoreManagementInterface">
-        <fault name="invalidSidFault" element="ghns:invalidSidError" />
-        <fault name="sidNotExistFault" element="ghns:sidNotExistError" />
-        <fault name="invalidScoreFault" element="ghns:invalidScoreError" />
-        <fault name="unselectedCozFault" element="ghns:unselectedCozError" />
-        <fault name="cozNotExistFault" element="=ghns:cozNotExistError" />
-        <fault name="typeNotExistFault" element="ghns:typeNotExistError" />
+        <fault name="invalidSidFault" element="jw:invalidSidError" />
+        <fault name="sidNotExistFault" element="jw:sidNotExistError" />
+        <fault name="invalidScoreFault" element="jw:invalidScoreError" />
+        <fault name="unselectedCozFault" element="jw:unselectedCozError" />
+        <fault name="cozNotExistFault" element="jw:cozNotExistError" />
+        <fault name="typeNotExistFault" element="jw:typeNotExistError" />
 
-        <operation name="queryScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+        <operation name="queryScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="ghns:sid" />
-            <output messaheLabel="Out" element="ghns:scoreList" />
+            <input messageLabel="In" element="jw:sid" />
+            <output messaheLabel="Out" element="jw:scoreList" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
         </operation>
 
-        <operation name="deleteScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+        <operation name="deleteScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="ghns:deleteScoreType" />
-            <output messaheLabel="Out" element="ghns:isSuccessful" />
+            <input messageLabel="In" element="jw:deleteScoreType" />
+            <output messaheLabel="Out" element="jw:isSuccessful" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
             <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
@@ -41,11 +40,11 @@
             <outfault ref="typeNotExistFault" messageLabel="Out" />
         </operation>
 
-        <operation name="modifyScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+        <operation name="modifyScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="ghns:singleScoreType" />
-            <output messaheLabel="Out" element="ghns:scoreList" />
+            <input messageLabel="In" element="jw:singleScoreType" />
+            <output messaheLabel="Out" element="jw:scoreList" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <infault ref="tns:invalidScoreFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
@@ -54,17 +53,17 @@
             <outfault ref="typeNotExistFault" messageLabel="Out" />
         </operation>
 
-        <operation name="addScoreOp" pattern="http://www.w3.org/ns/wsdl/in-out"
+        <operation name="addScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="ghns:singleScoreType" />
-            <output messaheLabel="Out" element="ghns:isSuccessful" />
+            <input messageLabel="In" element="jw:singleScoreType" />
+            <output messaheLabel="Out" element="jw:isSuccessful" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <infault ref="tns:invalidScoreFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
             <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
-            <outfault ref="cozNotExistFault" messageLabel="Out" />
-            <outfault ref="typeNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:cozNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:typeNotExistFault" messageLabel="Out" />
         </operation>
 
     </interface>
@@ -73,13 +72,13 @@
              type="http://www.w3.org/ns/wsdl/soap"
              wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
         <operation ref="tns:queryScoreOp"
-                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
         <operation ref="tns:deleteScoreOp"
-                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
         <operation ref="tns:modifyScoreOp"
-                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
         <operation ref="tns:addScoreOp"
-                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
         <fault ref="tns:invalidSidFault"
                wsoap:code="soap:Sender" />
         <fault ref="tns:sidNotExistFault"
