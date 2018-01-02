@@ -22,8 +22,8 @@
         <operation name="queryScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="jw:sid" />
-            <output messaheLabel="Out" element="jw:scoreList" />
+            <input messageLabel="In" element="jw:queryScore" />
+            <output messaheLabel="Out" element="jw:queryResult" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
         </operation>
@@ -31,8 +31,8 @@
         <operation name="deleteScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="jw:deleteScoreType" />
-            <output messaheLabel="Out" element="jw:isSuccessful" />
+            <input messageLabel="In" element="jw:deleteScore" />
+            <output messaheLabel="Out" element="jw:deleteResult" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
             <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
@@ -43,8 +43,8 @@
         <operation name="modifyScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="jw:singleScoreType" />
-            <output messaheLabel="Out" element="jw:scoreList" />
+            <input messageLabel="In" element="jw:modifyScore" />
+            <output messaheLabel="Out" element="jw:modifyResult" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <infault ref="tns:invalidScoreFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
@@ -56,8 +56,8 @@
         <operation name="addScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
                    style="http://www.w3.org/ns/wsdl/style/iri"
                    wsdlx:safe="true">
-            <input messageLabel="In" element="jw:singleScoreType" />
-            <output messaheLabel="Out" element="jw:isSuccessful" />
+            <input messageLabel="In" element="jw:addScore" />
+            <output messaheLabel="Out" element="jw:addResult" />
             <infault ref="tns:invalidSidFault" messageLabel="In" />
             <infault ref="tns:invalidScoreFault" messageLabel="In" />
             <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
