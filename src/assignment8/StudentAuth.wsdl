@@ -12,14 +12,15 @@
         describe student-authentication-service,including email authentication and studentID authentication
     </documention>
 
-    <types>
+    <include location="StudentIDAuth.wsdl"/>
+    <include location="EmailAuth.wsdl"/>
 
-        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                   namespace="http://finance.example.com/CreditCardFaults/xsd"
+    <types>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://jw.nju.edu.cn/schema"
                    schemaLocation="EmailAuth.xsd"/>
-        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                   namespace="http://finance.example.com/CreditCardFaults/xsd"
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://jw.nju.edu.cn/schema"
                    schemaLocation="StudentIDAuth.xsd"/>
+
     </types>
 
     <include location="EmailAuthFault.wsdl"/>
@@ -33,7 +34,7 @@
                    wsdlx:safe="true">
 
 
-            <input messageLabel="In" element="jw:emailAuthMsgType"/>
+            <input messageLabel="In" element="jw:emailAuthMsg"/>
             <output messageLabel="Out" element="jw:studentToken"/>
 
             <infault ref="jw:invalidEmailAccountError" messageLabel="In"/>
@@ -52,7 +53,7 @@
                    wsdlx:safe="true">
 
 
-            <input messageLabel="In" element="jw:StudentIDAuthMsgType"/>
+            <input messageLabel="In" element="jw:StudentIDAuthMsg"/>
             <output messageLabel="Out" element="jw:studentToken"/>
 
             <infault ref="jw:invalidStudentIDError" messageLabel="In"/>

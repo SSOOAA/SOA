@@ -6,6 +6,8 @@
 
     <include schemaLocation="../assignment2/Student.xsd"/>
 
+    <element name="StudentIDAuthMsg" type="tns:StudentIDAuthMsgType"/>
+
     <complexType name="StudentIDAuthMsgType">
         <sequence>
             <element name="StudentID" type="tns:学号类型"/>
