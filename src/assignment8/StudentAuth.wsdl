@@ -12,12 +12,14 @@
         describe student-authentication-service,including email authentication and studentID authentication
     </documention>
 
-    <import namespace="http://finance.example.com/CreditCardFaults/xsd"
-            schemaLocation="EmailAuth.xsd"/>
-    <import namespace="http://finance.example.com/CreditCardFaults/xsd"
-            schemaLocation="StudentIDAuth.xsd"/>
+    <include location="StudentIDAuth.wsdl"/>
+    <include location="EmailAuth.wsdl"/>
 
     <types>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://jw.nju.edu.cn/schema"
+                   schemaLocation="EmailAuth.xsd"/>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://jw.nju.edu.cn/schema"
+                   schemaLocation="StudentIDAuth.xsd"/>
 
     </types>
 
