@@ -34,7 +34,7 @@
                    wsdlx:safe="true">
 
 
-            <input messageLabel="In" element="jw:emailAuthMsgType"/>
+            <input messageLabel="In" element="jw:emailAuthMsg"/>
             <output messageLabel="Out" element="jw:studentToken"/>
 
             <infault ref="jw:invalidEmailAccountError" messageLabel="In"/>
@@ -53,7 +53,7 @@
                    wsdlx:safe="true">
 
 
-            <input messageLabel="In" element="jw:StudentIDAuthMsgType"/>
+            <input messageLabel="In" element="jw:StudentIDAuthMsg"/>
             <output messageLabel="Out" element="jw:studentToken"/>
 
             <infault ref="jw:invalidStudentIDError" messageLabel="In"/>
