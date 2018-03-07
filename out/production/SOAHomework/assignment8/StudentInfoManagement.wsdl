@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<description xmlns="http://www.w3.org/ns/wsdl"
+             targetNamespace="http://jw.nju.edu.cn/wsdl/studentInfoManagement"
+             xmlns:tns="http://jw.nju.edu.cn/wsdl"
+             xmlns:jw="http://jw.nju.edu.cn/schema"
+             xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+             xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
+             xmlns:soap="http://www.w3.org/2003/05/soap-envelop">
+    <documentation>
+        Description: The definition of the student info management Web Service of NJU.
+        Author: Xu Yangchen
+        Date: 1/1/2018
+    </documentation>
+
+    <include location="StudentInfoManagementFaults.wsdl"/>
+
+    <types>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://jw.nju.edu.cn/schema"
+                   schemaLocation="StudentInfoManagement.xsd"/>
+    </types>
+
+    <interface name="studentInfoInterface" extends="tns:studentInfoManagementFaults">
+
+        <operation name="retrieveStudentInfoOperation"
+                   pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+
+            <input messageLabel="Token" element="jw:studentToken"/>
+            <output messageLabel="Out" element="jw:retrieveStudentInfoResponse"/>
+
+            <outfault ref="tns:permissionDenied" messageLabel="Out"/>
+            <outfault ref="tns:invalidDataError" messageLabel="Out"/>
+
+        </operation>
+
+        <operation name="modifyStudentInfoOperation"
+                   pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+
+            <input messageLabel="Token" element="jw:studentToken"/>
+            <input messageLabel="In" element="jw:modifyStudentInfo"/>
+            <output messageLabel="Out" element="jw:modifyStudentInfoResponse"/>
+
+            <infault ref="tns:invalidName" messageLabel="In"/>
+            <infault ref="tns:invalidDepartment" messageLabel="In"/>
+            <infault ref="tns:invalidDuty" messageLabel="In"/>
+
+            <outfault ref="tns:permissionDenied" messageLabel="Out"/>
+
+        </operation>
+
+    </interface>
+
+    <binding name="studentInfoSOAPBinding" interface="tns:studentInfoInterface"
+             type="http://www.w3.org/ns/wsdl/soap"
+             wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+
+        <operation ref="tns:retrieveStudentInfoOperation"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response"/>
+        <operation ref="tns:modifyStudentInfoOperation"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response"/>
+
+        <fault ref="tns:invalidName" wsoap:code="soap:Sender"/>
+        <fault ref="tns:invalidDepartment" wsoap:code="soap:Sender"/>
+        <fault ref="tns:invalidDuty" wsoap:code="soap:Sender"/>
+        <fault ref="tns:permissionDenied" wsoap:code="soap:Sender"/>
+        <fault ref="tns:invalidDataError" wsoap:code="soap:Sender"/>
+
+    </binding>
+
+    <service name="studentInfoService"
+             interface="tns:studentInfoInterface">
+
+        <endpoint name="studentInfoEndpoint"
+                  binding="tns:studentInfoSOAPBinding"
+                  address="http://jw.nju.edu.cn/studentInfo"/>
+
+    </service>
+
+</description>

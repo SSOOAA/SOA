@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<description xmlns="http://www.w3.org/ns/wsdl"
+             targetNamespace="http://jw.nju.edu.cn/wsdl/scoreManagement"
+             xmlns:tns="http://jw.nju.edu.cn/wsdl/scoreManagement"
+             xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
+             xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+             xmlns:jw="http://jw.nju.edu.cn/schema">
+    <documentation>
+        This document describes the operation of score management,including batch crud
+    </documentation>
+    <types>
+        <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   namespace="http://jw.nju.edu.cn/schema"
+                   schemaLocation="ScoreManagement.xsd" />
+    </types>
+
+    <interface name="scoreManagementInterface">
+        <fault name="invalidSidFault" element="jw:invalidSidError">
+            <documentation>Thrown when the input sid doesn't conform to the specification </documentation>
+        </fault>
+        <fault name="sidNotExistFault" element="jw:sidNotExistError">
+            <documentation>Thrown when the input sid doesn't exist</documentation>
+        </fault>
+        <fault name="invalidScoreFault" element="jw:invalidScoreError">
+            <documentation>Thrown when the input score doesn't conform to the specification</documentation>
+        </fault>
+        <fault name="unselectedCozFault" element="jw:unselectedCozError">
+            <documentation>Thrown when  the input course id isn't in your course list</documentation>
+        </fault>
+        <fault name="cozNotExistFault" element="jw:cozNotExistError">
+            <documentation>Thrown when  the input course id doesn't exist</documentation>
+        </fault>
+        <fault name="typeNotExistFault" element="jw:typeNotExistError">
+            <documentation>Thrown when the input score type doesn't exist</documentation>
+        </fault>
+
+        <operation name="queryScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri"
+                   wsdlx:safe="true">
+            <input messageLabel="In" element="jw:queryScore" />
+            <output messaheLabel="Out" element="jw:queryResult" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+        </operation>
+
+        <operation name="deleteScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri">
+            <input messageLabel="In" element="jw:deleteScore" />
+            <output messaheLabel="Out" element="jw:deleteResult" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
+            <outfault ref="tns:cozNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:typeNotExistFault" messageLabel="Out" />
+        </operation>
+
+        <operation name="modifyScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri">
+            <input messageLabel="In" element="jw:modifyScore" />
+            <output messaheLabel="Out" element="jw:modifyResult" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <infault ref="tns:invalidScoreFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
+            <outfault ref="tns:cozNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:typeNotExistFault" messageLabel="Out" />
+        </operation>
+
+        <operation name="addScoreOperation" pattern="http://www.w3.org/ns/wsdl/in-out"
+                   style="http://www.w3.org/ns/wsdl/style/iri">
+            <input messageLabel="In" element="jw:addScore" />
+            <output messaheLabel="Out" element="jw:addResult" />
+            <infault ref="tns:invalidSidFault" messageLabel="In" />
+            <infault ref="tns:invalidScoreFault" messageLabel="In" />
+            <outfault ref="tns:sidNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:unselectedCozFault" messageLabel="Out" />
+            <outfault ref="tns:cozNotExistFault" messageLabel="Out" />
+            <outfault ref="tns:typeNotExistFault" messageLabel="Out" />
+        </operation>
+
+    </interface>
+
+    <binding name="scoreMgtBinding" interface="tns:scoreManagementInterface"
+             type="http://www.w3.org/ns/wsdl/soap"
+             wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+        <operation ref="tns:queryScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
+        <operation ref="tns:deleteScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
+        <operation ref="tns:modifyScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
+        <operation ref="tns:addScoreOp"
+                   wsoap:mep="http://www.w3.org/2003/05/soap/mep/request-response" />
+        <fault ref="tns:invalidSidFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:sidNotExistFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:invalidScoreFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:unselectedCozFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:cozNotExistFault"
+               wsoap:code="soap:Sender" />
+        <fault ref="tns:typeNotExistFault"
+               wsoap:code="soap:Sender" />
+    </binding>
+
+    <service name="scoreMgtService"
+             interface="tns:scoreManagementInterface">
+        <endpoint name="scoreMgtEndpoint"
+                  binding="tns:scoreMgtBinding"
+                  address="http://jw.nju.edu.cn/scoreMgt" />
+    </service>
+
+</description>
+
