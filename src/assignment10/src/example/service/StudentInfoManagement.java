@@ -111,6 +111,6 @@ public class StudentInfoManagement {
     }
 
     private boolean validateValue(String value) {
-        return value != null && !value.isEmpty();
+        return value == null || value.isEmpty();
     }
 }
