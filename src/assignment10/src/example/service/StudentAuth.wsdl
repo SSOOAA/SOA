@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.example" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service.example" xmlns:intf="http://service.example" xmlns:tns1="http://model.service.example" xmlns:tns2="http://fault.service.example" xmlns:tns3="http://sax.xml.org" xmlns:tns4="http://lang.java" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.service.example" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://fault.service.example"/>
+   <import namespace="http://sax.xml.org"/>
+   <import namespace="http://lang.java"/>
+   <complexType name="StudentIDAuthMsg">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="pwd" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="EmailAuthMsg">
+    <sequence>
+     <element name="account" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://service.example" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://fault.service.example"/>
+   <import namespace="http://sax.xml.org"/>
+   <import namespace="http://lang.java"/>
+   <import namespace="http://model.service.example"/>
+   <element name="studentIDAuthMsg" type="tns1:StudentIDAuthMsg"/>
+   <element name="studentIDAuthOperationReturn" type="xsd:string"/>
+   <element name="fault" type="tns2:InputFault"/>
+   <element name="fault1" type="tns3:SAXException"/>
+   <element name="emailAuthMsg" type="tns1:EmailAuthMsg"/>
+   <element name="emailAuthOperationReturn" type="xsd:string"/>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://fault.service.example" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://sax.xml.org"/>
+   <import namespace="http://lang.java"/>
+   <import namespace="http://model.service.example"/>
+   <complexType name="InputFault">
+    <sequence/>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://sax.xml.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://fault.service.example"/>
+   <import namespace="http://lang.java"/>
+   <import namespace="http://model.service.example"/>
+   <complexType name="SAXException">
+    <sequence>
+     <element name="cause" nillable="true" type="xsd:anyType"/>
+     <element name="exception" nillable="true" type="xsd:anyType"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="SAXException">
+
+      <wsdl:part element="impl:fault1" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="InputFault">
+
+      <wsdl:part element="impl:fault" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="emailAuthOperationRequest">
+
+      <wsdl:part element="impl:emailAuthMsg" name="emailAuthMsg"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="studentIDAuthOperationResponse">
+
+      <wsdl:part element="impl:studentIDAuthOperationReturn" name="studentIDAuthOperationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="emailAuthOperationResponse">
+
+      <wsdl:part element="impl:emailAuthOperationReturn" name="emailAuthOperationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="studentIDAuthOperationRequest">
+
+      <wsdl:part element="impl:studentIDAuthMsg" name="studentIDAuthMsg"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="StudentAuth">
+
+      <wsdl:operation name="studentIDAuthOperation" parameterOrder="studentIDAuthMsg">
+
+         <wsdl:input message="impl:studentIDAuthOperationRequest" name="studentIDAuthOperationRequest"/>
+
+         <wsdl:output message="impl:studentIDAuthOperationResponse" name="studentIDAuthOperationResponse"/>
+
+         <wsdl:fault message="impl:InputFault" name="InputFault"/>
+
+         <wsdl:fault message="impl:SAXException" name="SAXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="emailAuthOperation" parameterOrder="emailAuthMsg">
+
+         <wsdl:input message="impl:emailAuthOperationRequest" name="emailAuthOperationRequest"/>
+
+         <wsdl:output message="impl:emailAuthOperationResponse" name="emailAuthOperationResponse"/>
+
+         <wsdl:fault message="impl:InputFault" name="InputFault"/>
+
+         <wsdl:fault message="impl:SAXException" name="SAXException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="StudentAuthSoapBinding" type="impl:StudentAuth">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="studentIDAuthOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="studentIDAuthOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="studentIDAuthOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InputFault">
+
+            <wsdlsoap:fault name="InputFault" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SAXException">
+
+            <wsdlsoap:fault name="SAXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="emailAuthOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="emailAuthOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="emailAuthOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InputFault">
+
+            <wsdlsoap:fault name="InputFault" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SAXException">
+
+            <wsdlsoap:fault name="SAXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="StudentAuthService">
+
+      <wsdl:port binding="impl:StudentAuthSoapBinding" name="StudentAuth">
+
+         <wsdlsoap:address location="http://localhost:8080//services/example/service/StudentAuth"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

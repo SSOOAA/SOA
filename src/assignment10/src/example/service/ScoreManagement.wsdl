@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service" xmlns:intf="http://service" xmlns:tns1="http://sax.xml.org" xmlns:tns2="http://lang.java" xmlns:tns3="http://fault.service" xmlns:tns4="http://model.service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.service"/>
+   <import namespace="http://fault.service"/>
+   <import namespace="http://sax.xml.org"/>
+   <import namespace="http://lang.java"/>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <element name="sidList" type="impl:ArrayOf_xsd_anyType"/>
+   <element name="queryScoreOperationReturn" type="impl:ArrayOf_xsd_anyType"/>
+   <element name="fault" type="tns1:SAXException"/>
+   <element name="fault1" type="tns3:InputFault"/>
+   <element name="deleteScoreList" type="impl:ArrayOf_xsd_anyType"/>
+   <element name="deleteScoreOperationReturn" type="tns4:RequestResult"/>
+   <element name="modifyScoreList" type="impl:ArrayOf_xsd_anyType"/>
+   <element name="modifyScoreOperationReturn" type="tns4:RequestResult"/>
+   <element name="addScoreList" type="impl:ArrayOf_xsd_anyType"/>
+   <element name="addScoreOperationReturn" type="tns4:RequestResult"/>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://sax.xml.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.service"/>
+   <import namespace="http://fault.service"/>
+   <import namespace="http://service"/>
+   <import namespace="http://lang.java"/>
+   <complexType name="SAXException">
+    <sequence>
+     <element name="cause" nillable="true" type="xsd:anyType"/>
+     <element name="exception" nillable="true" type="xsd:anyType"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://fault.service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.service"/>
+   <import namespace="http://sax.xml.org"/>
+   <import namespace="http://service"/>
+   <import namespace="http://lang.java"/>
+   <complexType name="InputFault">
+    <sequence/>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://fault.service"/>
+   <import namespace="http://sax.xml.org"/>
+   <import namespace="http://service"/>
+   <import namespace="http://lang.java"/>
+   <complexType name="RequestResult">
+    <sequence>
+     <element name="isSuccess" type="xsd:boolean"/>
+     <element name="msg" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="deleteScoreOperationResponse">
+
+      <wsdl:part element="impl:deleteScoreOperationReturn" name="deleteScoreOperationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteScoreOperationRequest">
+
+      <wsdl:part element="impl:deleteScoreList" name="deleteScoreList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addScoreOperationRequest">
+
+      <wsdl:part element="impl:addScoreList" name="addScoreList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="modifyScoreOperationRequest">
+
+      <wsdl:part element="impl:modifyScoreList" name="modifyScoreList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryScoreOperationResponse">
+
+      <wsdl:part element="impl:queryScoreOperationReturn" name="queryScoreOperationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="queryScoreOperationRequest">
+
+      <wsdl:part element="impl:sidList" name="sidList"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addScoreOperationResponse">
+
+      <wsdl:part element="impl:addScoreOperationReturn" name="addScoreOperationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="SAXException">
+
+      <wsdl:part element="impl:fault" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="modifyScoreOperationResponse">
+
+      <wsdl:part element="impl:modifyScoreOperationReturn" name="modifyScoreOperationReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="InputFault">
+
+      <wsdl:part element="impl:fault1" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ScoreManagement">
+
+      <wsdl:operation name="queryScoreOperation" parameterOrder="sidList">
+
+         <wsdl:input message="impl:queryScoreOperationRequest" name="queryScoreOperationRequest"/>
+
+         <wsdl:output message="impl:queryScoreOperationResponse" name="queryScoreOperationResponse"/>
+
+         <wsdl:fault message="impl:InputFault" name="InputFault"/>
+
+         <wsdl:fault message="impl:SAXException" name="SAXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteScoreOperation" parameterOrder="deleteScoreList">
+
+         <wsdl:input message="impl:deleteScoreOperationRequest" name="deleteScoreOperationRequest"/>
+
+         <wsdl:output message="impl:deleteScoreOperationResponse" name="deleteScoreOperationResponse"/>
+
+         <wsdl:fault message="impl:InputFault" name="InputFault"/>
+
+         <wsdl:fault message="impl:SAXException" name="SAXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modifyScoreOperation" parameterOrder="modifyScoreList">
+
+         <wsdl:input message="impl:modifyScoreOperationRequest" name="modifyScoreOperationRequest"/>
+
+         <wsdl:output message="impl:modifyScoreOperationResponse" name="modifyScoreOperationResponse"/>
+
+         <wsdl:fault message="impl:InputFault" name="InputFault"/>
+
+         <wsdl:fault message="impl:SAXException" name="SAXException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addScoreOperation" parameterOrder="addScoreList">
+
+         <wsdl:input message="impl:addScoreOperationRequest" name="addScoreOperationRequest"/>
+
+         <wsdl:output message="impl:addScoreOperationResponse" name="addScoreOperationResponse"/>
+
+         <wsdl:fault message="impl:InputFault" name="InputFault"/>
+
+         <wsdl:fault message="impl:SAXException" name="SAXException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ScoreManagementSoapBinding" type="impl:ScoreManagement">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="queryScoreOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="queryScoreOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="queryScoreOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InputFault">
+
+            <wsdlsoap:fault name="InputFault" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SAXException">
+
+            <wsdlsoap:fault name="SAXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteScoreOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteScoreOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteScoreOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InputFault">
+
+            <wsdlsoap:fault name="InputFault" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SAXException">
+
+            <wsdlsoap:fault name="SAXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modifyScoreOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modifyScoreOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modifyScoreOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InputFault">
+
+            <wsdlsoap:fault name="InputFault" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SAXException">
+
+            <wsdlsoap:fault name="SAXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addScoreOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addScoreOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addScoreOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="InputFault">
+
+            <wsdlsoap:fault name="InputFault" use="literal"/>
+
+         </wsdl:fault>
+
+         <wsdl:fault name="SAXException">
+
+            <wsdlsoap:fault name="SAXException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ScoreManagementService">
+
+      <wsdl:port binding="impl:ScoreManagementSoapBinding" name="ScoreManagement">
+
+         <wsdlsoap:address location="http://localhost:8080//services/service/ScoreManagement"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
